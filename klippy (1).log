@@ -1,0 +1,4791 @@
+===== Config file =====
+[mcu]
+serial = /dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00
+
+[virtual_sdcard]
+path = /home/da_huo_shi_/printer_data/gcodes
+
+[display_status]
+
+[pause_resume]
+
+[gcode_macro CANCEL_PRINT]
+description = Cancel the actual running print
+rename_existing = CANCEL_PRINT_BASE
+gcode = 
+	TURN_OFF_HEATERS
+	CANCEL_PRINT_BASE
+
+[printer]
+kinematics = corexy
+max_velocity = 300
+max_accel = 3000
+max_z_velocity = 15
+max_z_accel = 350
+square_corner_velocity = 5.0
+
+[stepper_x]
+step_pin = PE11
+dir_pin = !PE10
+enable_pin = !PE9
+rotation_distance = 40
+microsteps = 32
+full_steps_per_rotation = 200
+endstop_pin = ^PB13
+position_min = 0
+position_endstop = 350
+position_max = 350
+homing_speed = 25
+homing_retract_dist = 5
+homing_positive_dir = true
+
+[tmc2209 stepper_x]
+uart_pin = PE7
+interpolate = False
+run_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[stepper_y]
+step_pin = PD8
+dir_pin = PB12
+enable_pin = !PD9
+rotation_distance = 40
+microsteps = 32
+full_steps_per_rotation = 200
+endstop_pin = ^PB14
+position_min = 0
+position_endstop = 350
+position_max = 350
+homing_speed = 25
+homing_retract_dist = 5
+homing_positive_dir = true
+
+[tmc2209 stepper_y]
+uart_pin = PE15
+interpolate = False
+run_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[stepper_z]
+step_pin = PD14
+dir_pin = !PD13
+enable_pin = !PD15
+rotation_distance = 40
+gear_ratio = 80:16
+microsteps = 32
+endstop_pin = ^PA0
+position_endstop = -0.5
+position_max = 310
+position_min = -5
+homing_speed = 8
+second_homing_speed = 3
+homing_retract_dist = 3
+
+[tmc2209 stepper_z]
+uart_pin = PD10
+interpolate = False
+run_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[stepper_z1]
+step_pin = PE6
+dir_pin = PC13
+enable_pin = !PE5
+rotation_distance = 40
+gear_ratio = 80:16
+microsteps = 32
+
+[tmc2209 stepper_z1]
+uart_pin = PC14
+interpolate = False
+run_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[stepper_z2]
+step_pin = PE2
+dir_pin = !PE4
+enable_pin = !PE3
+rotation_distance = 40
+gear_ratio = 80:16
+microsteps = 32
+
+[tmc2209 stepper_z2]
+uart_pin = PC15
+interpolate = False
+run_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[stepper_z3]
+step_pin = PD12
+dir_pin = PC4
+enable_pin = !PE8
+rotation_distance = 40
+gear_ratio = 80:16
+microsteps = 32
+
+[tmc2209 stepper_z3]
+uart_pin = PA15
+interpolate = False
+run_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[extruder]
+step_pin = PD5
+dir_pin = PD6
+enable_pin = !PD4
+rotation_distance = 22.6789511
+gear_ratio = 50:17
+microsteps = 32
+full_steps_per_rotation = 200
+nozzle_diameter = 0.400
+filament_diameter = 1.75
+heater_pin = PB15
+sensor_type = NTC 100K MGB18-104F39050L32
+sensor_pin = PC0
+min_temp = 10
+max_temp = 270
+max_power = 1.0
+min_extrude_temp = 170
+control = pid
+pid_kp = 26.213
+pid_ki = 1.304
+pid_kd = 131.721
+
+[tmc2209 extruder]
+uart_pin = PD7
+interpolate = false
+run_current = 0.5
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[heater_bed]
+heater_pin = PB4
+sensor_type = NTC 100K MGB18-104F39050L32
+sensor_pin = PB0
+max_power = 0.6
+min_temp = 0
+max_temp = 120
+control = pid
+pid_kp = 58.437
+pid_ki = 2.347
+pid_kd = 363.769
+
+[probe]
+pin = ^PA3
+x_offset = 0
+y_offset = 25.0
+z_offset = 0
+speed = 10.0
+samples = 3
+samples_result = median
+sample_retract_dist = 3.0
+samples_tolerance = 0.006
+samples_tolerance_retries = 3
+
+[heater_fan hotend_fan]
+pin = PA13
+max_power = 1.0
+heater = extruder
+heater_temp = 50.0
+
+[fan]
+pin = PA14
+kick_start_time = 0.5
+off_below = 0.10
+
+[heater_fan controller_fan]
+pin = PB2
+kick_start_time = 0.5
+heater = heater_bed
+heater_temp = 45.0
+
+[idle_timeout]
+timeout = 1800
+
+[safe_z_home]
+home_xy_position = 350.000 , 234.000
+speed = 100
+z_hop = 10
+
+[quad_gantry_level]
+gantry_corners = 
+	-60,-10
+	410,420
+points = 
+	50,25
+	50,275
+	300,275
+	300,25
+speed = 100
+horizontal_move_z = 10
+retries = 5
+retry_tolerance = 0.0075
+max_adjust = 10
+
+[display]
+lcd_type = uc1701
+cs_pin = PC11
+a0_pin = PD2
+rst_pin = PC10
+encoder_pins = ^PC6,^PC7
+click_pin = ^!PA8
+contrast = 63
+spi_software_mosi_pin = PA7
+spi_software_miso_pin = PA6
+spi_software_sclk_pin = PA5
+
+[neopixel fysetc_mini12864]
+pin = PC12
+chain_count = 3
+initial_red = 0.1
+initial_green = 0.5
+initial_blue = 0.0
+color_order = RGB
+
+[delayed_gcode setdisplayneopixel]
+initial_duration = 1
+gcode = 
+	SET_LED LED=fysetc_mini12864 RED=1 GREEN=1 BLUE=1 INDEX=1 TRANSMIT=0
+	SET_LED LED=fysetc_mini12864 RED=1 GREEN=0 BLUE=0 INDEX=2 TRANSMIT=0
+	SET_LED LED=fysetc_mini12864 RED=1 GREEN=0 BLUE=0 INDEX=3
+
+[gcode_macro PARK]
+gcode = 
+	{% set th = printer.toolhead %}
+	G0 X{th.axis_maximum.x//2} Y{th.axis_maximum.y//2} Z30
+
+[gcode_macro G32]
+gcode = 
+	SAVE_GCODE_STATE NAME=STATE_G32
+	G90
+	G28
+	QUAD_GANTRY_LEVEL
+	G28
+	PARK
+	RESTORE_GCODE_STATE NAME=STATE_G32
+
+[gcode_macro PRINT_START]
+gcode = 
+	G32                            ; home all axes
+	G90                            ; absolute positioning
+	G1 Z20 F3000                   ; move nozzle away from bed
+
+[gcode_macro PRINT_END]
+gcode = 
+	{% set th = printer.toolhead %}
+	{% set x_safe = th.position.x + 20 * (1 if th.axis_maximum.x - th.position.x > 20 else -1) %}
+	{% set y_safe = th.position.y + 20 * (1 if th.axis_maximum.y - th.position.y > 20 else -1) %}
+	{% set z_safe = [th.position.z + 2, th.axis_maximum.z]|min %}
+	SAVE_GCODE_STATE NAME=STATE_PRINT_END
+	M400                           ; wait for buffer to clear
+	G92 E0                         ; zero the extruder
+	G1 E-5.0 F1800                 ; retract filament
+	TURN_OFF_HEATERS
+	G90                                      ; absolute positioning
+	G0 X{x_safe} Y{y_safe} Z{z_safe} F20000  ; move nozzle to remove stringing
+	G0 X{th.axis_maximum.x//2} Y{th.axis_maximum.y - 2} F3600  ; park nozzle at rear
+	M107                                     ; turn off fan
+	BED_MESH_CLEAR
+	RESTORE_GCODE_STATE NAME=STATE_PRINT_END
+=======================
+Args: ['/home/da_huo_shi_/klipper/klippy/klippy.py', '/home/da_huo_shi_/klipper_config/printer.cfg', '-I', '/tmp/printer', '-l', '/home/da_huo_shi_/klipper_logs/klippy.log', '-a', '/tmp/klippy_uds']
+Git version: 'v0.11.0-197-ga3eebab4'
+Branch: master
+Remote: origin
+Tracked URL: https://github.com/Klipper3d/klipper.git
+CPU: 4 core ?
+Python: '2.7.18 (default, Jul 14 2021, 08:11:37) \n[GCC 10.2.1 20210110]'
+webhooks client 548390933440: {'program': 'Moonraker', 'version': 'v0.8.0-39-g6c7dfe5'}
+=============== Log rollover at Sun May  7 08:48:02 2023 ===============
+mcu 'mcu': Unable to open serial port: [Errno 2] could not open port /dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00: [Errno 2] No such file or directory: '/dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00'
+mcu 'mcu': Unable to open serial port: [Errno 2] could not open port /dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00: [Errno 2] No such file or directory: '/dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00'
+mcu 'mcu': Unable to open serial port: [Errno 2] could not open port /dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00: [Errno 2] No such file or directory: '/dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00'
+mcu 'mcu': Unable to open serial port: [Errno 2] could not open port /dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00: [Errno 2] No such file or directory: '/dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00'
+mcu 'mcu': Unable to open serial port: [Errno 2] could not open port /dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00: [Errno 2] No such file or directory: '/dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00'
+mcu 'mcu': Unable to open serial port: [Errno 2] could not open port /dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00: [Errno 2] No such file or directory: '/dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00'
+mcu 'mcu': Unable to open serial port: [Errno 2] could not open port /dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00: [Errno 2] No such file or directory: '/dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00'
+mcu 'mcu': Unable to open serial port: [Errno 2] could not open port /dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00: [Errno 2] No such file or directory: '/dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00'
+mcu 'mcu': Unable to open serial port: [Errno 2] could not open port /dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00: [Errno 2] No such file or directory: '/dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00'
+mcu 'mcu': Unable to open serial port: [Errno 2] could not open port /dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00: [Errno 2] No such file or directory: '/dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00'
+mcu 'mcu': Unable to open serial port: [Errno 2] could not open port /dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00: [Errno 2] No such file or directory: '/dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00'
+mcu 'mcu': Unable to open serial port: [Errno 2] could not open port /dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00: [Errno 2] No such file or directory: '/dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00'
+MCU error during connect
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/klippy.py", line 176, in _connect
+    self.send_event("klippy:mcu_identify")
+  File "/home/da_huo_shi_/klipper/klippy/klippy.py", line 263, in send_event
+    return [cb(*params) for cb in self.event_handlers.get(event, [])]
+  File "/home/da_huo_shi_/klipper/klippy/mcu.py", line 803, in _mcu_identify
+    raise error(str(e))
+error: mcu 'mcu': Unable to connect
+Build file /home/da_huo_shi_/klipper/klippy/../.config(3114): Sun May  7 08:48:58 2023
+========= Last MCU build config =========
+CONFIG_LOW_LEVEL_OPTIONS=y
+# CONFIG_MACH_AVR is not set
+# CONFIG_MACH_ATSAM is not set
+# CONFIG_MACH_ATSAMD is not set
+# CONFIG_MACH_LPC176X is not set
+CONFIG_MACH_STM32=y
+# CONFIG_MACH_HC32F460 is not set
+# CONFIG_MACH_RP2040 is not set
+# CONFIG_MACH_PRU is not set
+# CONFIG_MACH_AR100 is not set
+# CONFIG_MACH_LINUX is not set
+# CONFIG_MACH_SIMU is not set
+CONFIG_BOARD_DIRECTORY="stm32"
+CONFIG_MCU="stm32f446xx"
+CONFIG_CLOCK_FREQ=180000000
+CONFIG_SERIAL=y
+CONFIG_FLASH_SIZE=0x80000
+CONFIG_FLASH_BOOT_ADDRESS=0x8000000
+CONFIG_RAM_START=0x20000000
+CONFIG_RAM_SIZE=0x20000
+CONFIG_STACK_SIZE=512
+CONFIG_FLASH_APPLICATION_ADDRESS=0x8008000
+CONFIG_STM32_SELECT=y
+# CONFIG_MACH_STM32F103 is not set
+# CONFIG_MACH_STM32F207 is not set
+# CONFIG_MACH_STM32F401 is not set
+# CONFIG_MACH_STM32F405 is not set
+# CONFIG_MACH_STM32F407 is not set
+# CONFIG_MACH_STM32F429 is not set
+CONFIG_MACH_STM32F446=y
+# CONFIG_MACH_STM32F031 is not set
+# CONFIG_MACH_STM32F042 is not set
+# CONFIG_MACH_STM32F070 is not set
+# CONFIG_MACH_STM32F072 is not set
+# CONFIG_MACH_STM32G070 is not set
+# CONFIG_MACH_STM32G071 is not set
+# CONFIG_MACH_STM32G0B0 is not set
+# CONFIG_MACH_STM32G0B1 is not set
+# CONFIG_MACH_STM32G431 is not set
+# CONFIG_MACH_STM32H723 is not set
+# CONFIG_MACH_STM32H743 is not set
+# CONFIG_MACH_STM32H750 is not set
+# CONFIG_MACH_STM32L412 is not set
+# CONFIG_MACH_N32G452 is not set
+# CONFIG_MACH_N32G455 is not set
+CONFIG_MACH_STM32F4=y
+CONFIG_HAVE_STM32_USBOTG=y
+CONFIG_HAVE_STM32_CANBUS=y
+CONFIG_HAVE_STM32_USBCANBUS=y
+CONFIG_STM32_DFU_ROM_ADDRESS=0
+CONFIG_STM32_FLASH_START_8000=y
+# CONFIG_STM32_FLASH_START_10000 is not set
+# CONFIG_STM32_FLASH_START_0000 is not set
+# CONFIG_STM32_CLOCK_REF_8M is not set
+CONFIG_STM32_CLOCK_REF_12M=y
+# CONFIG_STM32_CLOCK_REF_16M is not set
+# CONFIG_STM32_CLOCK_REF_20M is not set
+# CONFIG_STM32_CLOCK_REF_25M is not set
+# CONFIG_STM32_CLOCK_REF_INTERNAL is not set
+CONFIG_CLOCK_REF_FREQ=12000000
+CONFIG_STM32F0_TRIM=16
+# CONFIG_STM32_USB_PA11_PA12 is not set
+CONFIG_STM32_SERIAL_USART1=y
+# CONFIG_STM32_SERIAL_USART1_ALT_PB7_PB6 is not set
+# CONFIG_STM32_SERIAL_USART2 is not set
+# CONFIG_STM32_SERIAL_USART2_ALT_PD6_PD5 is not set
+# CONFIG_STM32_SERIAL_USART3 is not set
+# CONFIG_STM32_SERIAL_USART3_ALT_PD9_PD8 is not set
+# CONFIG_STM32_CANBUS_PA11_PA12 is not set
+# CONFIG_STM32_CANBUS_PA11_PB9 is not set
+# CONFIG_STM32_MMENU_CANBUS_PB8_PB9 is not set
+# CONFIG_STM32_MMENU_CANBUS_PI9_PH13 is not set
+# CONFIG_STM32_MMENU_CANBUS_PB5_PB6 is not set
+# CONFIG_STM32_MMENU_CANBUS_PB12_PB13 is not set
+# CONFIG_STM32_MMENU_CANBUS_PD0_PD1 is not set
+# CONFIG_STM32_USBCANBUS_PA11_PA12 is not set
+CONFIG_SERIAL_BAUD=250000
+CONFIG_USB_VENDOR_ID=0x1d50
+CONFIG_USB_DEVICE_ID=0x614e
+CONFIG_USB_SERIAL_NUMBER="12345"
+CONFIG_CANBUS_FREQUENCY=500000
+CONFIG_INITIAL_PINS=""
+CONFIG_HAVE_GPIO=y
+CONFIG_HAVE_GPIO_ADC=y
+CONFIG_HAVE_GPIO_SPI=y
+CONFIG_HAVE_GPIO_SDIO=y
+CONFIG_HAVE_GPIO_I2C=y
+CONFIG_HAVE_GPIO_HARD_PWM=y
+CONFIG_HAVE_GPIO_BITBANGING=y
+CONFIG_HAVE_STRICT_TIMING=y
+CONFIG_HAVE_CHIPID=y
+CONFIG_HAVE_STEPPER_BOTH_EDGE=y
+CONFIG_HAVE_BOOTLOADER_REQUEST=y
+CONFIG_INLINE_STEPPER_HACK=y
+=======================
+Build file /home/da_huo_shi_/klipper/klippy/../out/klipper.dict(9215): Sat May  6 23:28:19 2023
+Last MCU build version: v0.11.0-197-ga3eebab4
+Last MCU build tools: gcc: (Debian 10.2.1-6) 10.2.1 20210110 binutils: (GNU Binutils for Debian) 2.35.2
+Last MCU build config: PCA9685_MAX=4096 ADC_MAX=4095 PWM_MAX=32768 CLOCK_FREQ=50000000 MCU=linux STATS_SUMSQ_BASE=256
+Build file /home/da_huo_shi_/klipper/klippy/../out/klipper.elf(820576): Sat May  6 23:28:26 2023
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                Starting Klippy...
+Args: ['/home/da_huo_shi_/klipper/klippy/klippy.py', '/home/da_huo_shi_/klipper_config/printer.cfg', '-I', '/tmp/printer', '-l', '/home/da_huo_shi_/klipper_logs/klippy.log', '-a', '/tmp/klippy_uds']
+Git version: 'v0.11.0-197-ga3eebab4'
+Branch: master
+Remote: origin
+Tracked URL: https://github.com/Klipper3d/klipper.git
+CPU: 4 core ?
+Python: '2.7.18 (default, Jul 14 2021, 08:11:37) \n[GCC 10.2.1 20210110]'
+Start printer at Sun May  7 08:51:46 2023 (1683420706.1 10.7)
+===== Config file =====
+[mcu]
+serial = /dev/ttyAMA0
+
+[virtual_sdcard]
+path = /home/da_huo_shi_/printer_data/gcodes
+
+[display_status]
+
+[pause_resume]
+
+[gcode_macro CANCEL_PRINT]
+description = Cancel the actual running print
+rename_existing = CANCEL_PRINT_BASE
+gcode = 
+	TURN_OFF_HEATERS
+	CANCEL_PRINT_BASE
+
+[printer]
+kinematics = corexy
+max_velocity = 300
+max_accel = 3000
+max_z_velocity = 15
+max_z_accel = 350
+square_corner_velocity = 5.0
+
+[stepper_x]
+step_pin = PE11
+dir_pin = !PE10
+enable_pin = !PE9
+rotation_distance = 40
+microsteps = 32
+full_steps_per_rotation = 200
+endstop_pin = ^PB13
+position_min = 0
+position_endstop = 350
+position_max = 350
+homing_speed = 25
+homing_retract_dist = 5
+homing_positive_dir = true
+
+[tmc2209 stepper_x]
+uart_pin = PE7
+interpolate = False
+run_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[stepper_y]
+step_pin = PD8
+dir_pin = PB12
+enable_pin = !PD9
+rotation_distance = 40
+microsteps = 32
+full_steps_per_rotation = 200
+endstop_pin = ^PB14
+position_min = 0
+position_endstop = 350
+position_max = 350
+homing_speed = 25
+homing_retract_dist = 5
+homing_positive_dir = true
+
+[tmc2209 stepper_y]
+uart_pin = PE15
+interpolate = False
+run_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[stepper_z]
+step_pin = PD14
+dir_pin = !PD13
+enable_pin = !PD15
+rotation_distance = 40
+gear_ratio = 80:16
+microsteps = 32
+endstop_pin = ^PA0
+position_endstop = -0.5
+position_max = 310
+position_min = -5
+homing_speed = 8
+second_homing_speed = 3
+homing_retract_dist = 3
+
+[tmc2209 stepper_z]
+uart_pin = PD10
+interpolate = False
+run_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[stepper_z1]
+step_pin = PE6
+dir_pin = PC13
+enable_pin = !PE5
+rotation_distance = 40
+gear_ratio = 80:16
+microsteps = 32
+
+[tmc2209 stepper_z1]
+uart_pin = PC14
+interpolate = False
+run_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[stepper_z2]
+step_pin = PE2
+dir_pin = !PE4
+enable_pin = !PE3
+rotation_distance = 40
+gear_ratio = 80:16
+microsteps = 32
+
+[tmc2209 stepper_z2]
+uart_pin = PC15
+interpolate = False
+run_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[stepper_z3]
+step_pin = PD12
+dir_pin = PC4
+enable_pin = !PE8
+rotation_distance = 40
+gear_ratio = 80:16
+microsteps = 32
+
+[tmc2209 stepper_z3]
+uart_pin = PA15
+interpolate = False
+run_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[extruder]
+step_pin = PD5
+dir_pin = PD6
+enable_pin = !PD4
+rotation_distance = 22.6789511
+gear_ratio = 50:17
+microsteps = 32
+full_steps_per_rotation = 200
+nozzle_diameter = 0.400
+filament_diameter = 1.75
+heater_pin = PB15
+sensor_type = NTC 100K MGB18-104F39050L32
+sensor_pin = PC0
+min_temp = 10
+max_temp = 270
+max_power = 1.0
+min_extrude_temp = 170
+control = pid
+pid_kp = 26.213
+pid_ki = 1.304
+pid_kd = 131.721
+
+[tmc2209 extruder]
+uart_pin = PD7
+interpolate = false
+run_current = 0.5
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[heater_bed]
+heater_pin = PB4
+sensor_type = NTC 100K MGB18-104F39050L32
+sensor_pin = PB0
+max_power = 0.6
+min_temp = 0
+max_temp = 120
+control = pid
+pid_kp = 58.437
+pid_ki = 2.347
+pid_kd = 363.769
+
+[probe]
+pin = ^PA3
+x_offset = 0
+y_offset = 25.0
+z_offset = 0
+speed = 10.0
+samples = 3
+samples_result = median
+sample_retract_dist = 3.0
+samples_tolerance = 0.006
+samples_tolerance_retries = 3
+
+[heater_fan hotend_fan]
+pin = PA13
+max_power = 1.0
+heater = extruder
+heater_temp = 50.0
+
+[fan]
+pin = PA14
+kick_start_time = 0.5
+off_below = 0.10
+
+[heater_fan controller_fan]
+pin = PB2
+kick_start_time = 0.5
+heater = heater_bed
+heater_temp = 45.0
+
+[idle_timeout]
+timeout = 1800
+
+[safe_z_home]
+home_xy_position = 350.000 , 234.000
+speed = 100
+z_hop = 10
+
+[quad_gantry_level]
+gantry_corners = 
+	-60,-10
+	410,420
+points = 
+	50,25
+	50,275
+	300,275
+	300,25
+speed = 100
+horizontal_move_z = 10
+retries = 5
+retry_tolerance = 0.0075
+max_adjust = 10
+
+[display]
+lcd_type = uc1701
+cs_pin = PC11
+a0_pin = PD2
+rst_pin = PC10
+encoder_pins = ^PC6,^PC7
+click_pin = ^!PA8
+contrast = 63
+spi_software_mosi_pin = PA7
+spi_software_miso_pin = PA6
+spi_software_sclk_pin = PA5
+
+[neopixel fysetc_mini12864]
+pin = PC12
+chain_count = 3
+initial_red = 0.1
+initial_green = 0.5
+initial_blue = 0.0
+color_order = RGB
+
+[delayed_gcode setdisplayneopixel]
+initial_duration = 1
+gcode = 
+	SET_LED LED=fysetc_mini12864 RED=1 GREEN=1 BLUE=1 INDEX=1 TRANSMIT=0
+	SET_LED LED=fysetc_mini12864 RED=1 GREEN=0 BLUE=0 INDEX=2 TRANSMIT=0
+	SET_LED LED=fysetc_mini12864 RED=1 GREEN=0 BLUE=0 INDEX=3
+
+[gcode_macro PARK]
+gcode = 
+	{% set th = printer.toolhead %}
+	G0 X{th.axis_maximum.x//2} Y{th.axis_maximum.y//2} Z30
+
+[gcode_macro G32]
+gcode = 
+	SAVE_GCODE_STATE NAME=STATE_G32
+	G90
+	G28
+	QUAD_GANTRY_LEVEL
+	G28
+	PARK
+	RESTORE_GCODE_STATE NAME=STATE_G32
+
+[gcode_macro PRINT_START]
+gcode = 
+	G32                            ; home all axes
+	G90                            ; absolute positioning
+	G1 Z20 F3000                   ; move nozzle away from bed
+
+[gcode_macro PRINT_END]
+gcode = 
+	{% set th = printer.toolhead %}
+	{% set x_safe = th.position.x + 20 * (1 if th.axis_maximum.x - th.position.x > 20 else -1) %}
+	{% set y_safe = th.position.y + 20 * (1 if th.axis_maximum.y - th.position.y > 20 else -1) %}
+	{% set z_safe = [th.position.z + 2, th.axis_maximum.z]|min %}
+	SAVE_GCODE_STATE NAME=STATE_PRINT_END
+	M400                           ; wait for buffer to clear
+	G92 E0                         ; zero the extruder
+	G1 E-5.0 F1800                 ; retract filament
+	TURN_OFF_HEATERS
+	G90                                      ; absolute positioning
+	G0 X{x_safe} Y{y_safe} Z{z_safe} F20000  ; move nozzle to remove stringing
+	G0 X{th.axis_maximum.x//2} Y{th.axis_maximum.y - 2} F3600  ; park nozzle at rear
+	M107                                     ; turn off fan
+	BED_MESH_CLEAR
+	RESTORE_GCODE_STATE NAME=STATE_PRINT_END
+=======================
+Extruder max_extrude_ratio=0.266081
+mcu 'mcu': Starting serial connect
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+Got error -1 in read: (11)Resource temporarily unavailable
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+webhooks client 548447443056: New connection
+webhooks client 548447443056: Client info {'program': 'Moonraker', 'version': 'v0.8.0-39-g6c7dfe5'}
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     Starting Klippy...
+Args: ['/home/da_huo_shi_/klipper/klippy/klippy.py', '/home/da_huo_shi_/klipper_config/printer.cfg', '-I', '/tmp/printer', '-l', '/home/da_huo_shi_/klipper_logs/klippy.log', '-a', '/tmp/klippy_uds']
+Git version: 'v0.11.0-197-ga3eebab4'
+Branch: master
+Remote: origin
+Tracked URL: https://github.com/Klipper3d/klipper.git
+CPU: 4 core ?
+Python: '2.7.18 (default, Jul 14 2021, 08:11:37) \n[GCC 10.2.1 20210110]'
+Start printer at Sun May  7 08:58:57 2023 (1683421138.0 9.9)
+===== Config file =====
+[mcu]
+serial = /dev/ttyAMA0
+
+[virtual_sdcard]
+path = /home/da_huo_shi_/printer_data/gcodes
+
+[display_status]
+
+[pause_resume]
+
+[gcode_macro CANCEL_PRINT]
+description = Cancel the actual running print
+rename_existing = CANCEL_PRINT_BASE
+gcode = 
+	TURN_OFF_HEATERS
+	CANCEL_PRINT_BASE
+
+[printer]
+kinematics = corexy
+max_velocity = 300
+max_accel = 3000
+max_z_velocity = 15
+max_z_accel = 350
+square_corner_velocity = 5.0
+
+[stepper_x]
+step_pin = PE11
+dir_pin = !PE10
+enable_pin = !PE9
+rotation_distance = 40
+microsteps = 32
+full_steps_per_rotation = 200
+endstop_pin = ^PB13
+position_min = 0
+position_endstop = 350
+position_max = 350
+homing_speed = 25
+homing_retract_dist = 5
+homing_positive_dir = true
+
+[tmc2209 stepper_x]
+uart_pin = PE7
+interpolate = False
+run_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[stepper_y]
+step_pin = PD8
+dir_pin = PB12
+enable_pin = !PD9
+rotation_distance = 40
+microsteps = 32
+full_steps_per_rotation = 200
+endstop_pin = ^PB14
+position_min = 0
+position_endstop = 350
+position_max = 350
+homing_speed = 25
+homing_retract_dist = 5
+homing_positive_dir = true
+
+[tmc2209 stepper_y]
+uart_pin = PE15
+interpolate = False
+run_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[stepper_z]
+step_pin = PD14
+dir_pin = !PD13
+enable_pin = !PD15
+rotation_distance = 40
+gear_ratio = 80:16
+microsteps = 32
+endstop_pin = ^PA0
+position_endstop = -0.5
+position_max = 310
+position_min = -5
+homing_speed = 8
+second_homing_speed = 3
+homing_retract_dist = 3
+
+[tmc2209 stepper_z]
+uart_pin = PD10
+interpolate = False
+run_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[stepper_z1]
+step_pin = PE6
+dir_pin = PC13
+enable_pin = !PE5
+rotation_distance = 40
+gear_ratio = 80:16
+microsteps = 32
+
+[tmc2209 stepper_z1]
+uart_pin = PC14
+interpolate = False
+run_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[stepper_z2]
+step_pin = PE2
+dir_pin = !PE4
+enable_pin = !PE3
+rotation_distance = 40
+gear_ratio = 80:16
+microsteps = 32
+
+[tmc2209 stepper_z2]
+uart_pin = PC15
+interpolate = False
+run_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[stepper_z3]
+step_pin = PD12
+dir_pin = PC4
+enable_pin = !PE8
+rotation_distance = 40
+gear_ratio = 80:16
+microsteps = 32
+
+[tmc2209 stepper_z3]
+uart_pin = PA15
+interpolate = False
+run_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[extruder]
+step_pin = PD5
+dir_pin = PD6
+enable_pin = !PD4
+rotation_distance = 22.6789511
+gear_ratio = 50:17
+microsteps = 32
+full_steps_per_rotation = 200
+nozzle_diameter = 0.400
+filament_diameter = 1.75
+heater_pin = PB15
+sensor_type = NTC 100K MGB18-104F39050L32
+sensor_pin = PC0
+min_temp = 10
+max_temp = 270
+max_power = 1.0
+min_extrude_temp = 170
+control = pid
+pid_kp = 26.213
+pid_ki = 1.304
+pid_kd = 131.721
+
+[tmc2209 extruder]
+uart_pin = PD7
+interpolate = false
+run_current = 0.5
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[heater_bed]
+heater_pin = PB4
+sensor_type = NTC 100K MGB18-104F39050L32
+sensor_pin = PB0
+max_power = 0.6
+min_temp = 0
+max_temp = 120
+control = pid
+pid_kp = 58.437
+pid_ki = 2.347
+pid_kd = 363.769
+
+[probe]
+pin = ^PA3
+x_offset = 0
+y_offset = 25.0
+z_offset = 0
+speed = 10.0
+samples = 3
+samples_result = median
+sample_retract_dist = 3.0
+samples_tolerance = 0.006
+samples_tolerance_retries = 3
+
+[heater_fan hotend_fan]
+pin = PA13
+max_power = 1.0
+heater = extruder
+heater_temp = 50.0
+
+[fan]
+pin = PA14
+kick_start_time = 0.5
+off_below = 0.10
+
+[heater_fan controller_fan]
+pin = PB2
+kick_start_time = 0.5
+heater = heater_bed
+heater_temp = 45.0
+
+[idle_timeout]
+timeout = 1800
+
+[safe_z_home]
+home_xy_position = 350.000 , 234.000
+speed = 100
+z_hop = 10
+
+[quad_gantry_level]
+gantry_corners = 
+	-60,-10
+	410,420
+points = 
+	50,25
+	50,275
+	300,275
+	300,25
+speed = 100
+horizontal_move_z = 10
+retries = 5
+retry_tolerance = 0.0075
+max_adjust = 10
+
+[display]
+lcd_type = uc1701
+cs_pin = PC11
+a0_pin = PD2
+rst_pin = PC10
+encoder_pins = ^PC6,^PC7
+click_pin = ^!PA8
+contrast = 63
+spi_software_mosi_pin = PA7
+spi_software_miso_pin = PA6
+spi_software_sclk_pin = PA5
+
+[neopixel fysetc_mini12864]
+pin = PC12
+chain_count = 3
+initial_red = 0.1
+initial_green = 0.5
+initial_blue = 0.0
+color_order = RGB
+
+[delayed_gcode setdisplayneopixel]
+initial_duration = 1
+gcode = 
+	SET_LED LED=fysetc_mini12864 RED=1 GREEN=1 BLUE=1 INDEX=1 TRANSMIT=0
+	SET_LED LED=fysetc_mini12864 RED=1 GREEN=0 BLUE=0 INDEX=2 TRANSMIT=0
+	SET_LED LED=fysetc_mini12864 RED=1 GREEN=0 BLUE=0 INDEX=3
+
+[gcode_macro PARK]
+gcode = 
+	{% set th = printer.toolhead %}
+	G0 X{th.axis_maximum.x//2} Y{th.axis_maximum.y//2} Z30
+
+[gcode_macro G32]
+gcode = 
+	SAVE_GCODE_STATE NAME=STATE_G32
+	G90
+	G28
+	QUAD_GANTRY_LEVEL
+	G28
+	PARK
+	RESTORE_GCODE_STATE NAME=STATE_G32
+
+[gcode_macro PRINT_START]
+gcode = 
+	G32                            ; home all axes
+	G90                            ; absolute positioning
+	G1 Z20 F3000                   ; move nozzle away from bed
+
+[gcode_macro PRINT_END]
+gcode = 
+	{% set th = printer.toolhead %}
+	{% set x_safe = th.position.x + 20 * (1 if th.axis_maximum.x - th.position.x > 20 else -1) %}
+	{% set y_safe = th.position.y + 20 * (1 if th.axis_maximum.y - th.position.y > 20 else -1) %}
+	{% set z_safe = [th.position.z + 2, th.axis_maximum.z]|min %}
+	SAVE_GCODE_STATE NAME=STATE_PRINT_END
+	M400                           ; wait for buffer to clear
+	G92 E0                         ; zero the extruder
+	G1 E-5.0 F1800                 ; retract filament
+	TURN_OFF_HEATERS
+	G90                                      ; absolute positioning
+	G0 X{x_safe} Y{y_safe} Z{z_safe} F20000  ; move nozzle to remove stringing
+	G0 X{th.axis_maximum.x//2} Y{th.axis_maximum.y - 2} F3600  ; park nozzle at rear
+	M107                                     ; turn off fan
+	BED_MESH_CLEAR
+	RESTORE_GCODE_STATE NAME=STATE_PRINT_END
+=======================
+Extruder max_extrude_ratio=0.266081
+mcu 'mcu': Starting serial connect
+Got error -1 in read: (11)Resource temporarily unavailable
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+webhooks client 548382979008: New connection
+webhooks client 548382979008: Client info {'program': 'Moonraker', 'version': 'v0.8.0-39-g6c7dfe5'}
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+webhooks client 548382979008: Disconnected
+Restarting printer
+Start printer at Sun May  7 09:00:54 2023 (1683421254.9 57.4)
+===== Config file =====
+[mcu]
+serial = /dev/ttyAMA0
+
+[virtual_sdcard]
+path = /home/da_huo_shi_/printer_data/gcodes
+
+[display_status]
+
+[pause_resume]
+
+[gcode_macro CANCEL_PRINT]
+description = Cancel the actual running print
+rename_existing = CANCEL_PRINT_BASE
+gcode = 
+	TURN_OFF_HEATERS
+	CANCEL_PRINT_BASE
+
+[printer]
+kinematics = corexy
+max_velocity = 300
+max_accel = 3000
+max_z_velocity = 15
+max_z_accel = 350
+square_corner_velocity = 5.0
+
+[stepper_x]
+step_pin = PE11
+dir_pin = !PE10
+enable_pin = !PE9
+rotation_distance = 40
+microsteps = 32
+full_steps_per_rotation = 200
+endstop_pin = ^PB13
+position_min = 0
+position_endstop = 350
+position_max = 350
+homing_speed = 25
+homing_retract_dist = 5
+homing_positive_dir = true
+
+[tmc2209 stepper_x]
+uart_pin = PE7
+interpolate = False
+run_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[stepper_y]
+step_pin = PD8
+dir_pin = PB12
+enable_pin = !PD9
+rotation_distance = 40
+microsteps = 32
+full_steps_per_rotation = 200
+endstop_pin = ^PB14
+position_min = 0
+position_endstop = 350
+position_max = 350
+homing_speed = 25
+homing_retract_dist = 5
+homing_positive_dir = true
+
+[tmc2209 stepper_y]
+uart_pin = PE15
+interpolate = False
+run_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[stepper_z]
+step_pin = PD14
+dir_pin = !PD13
+enable_pin = !PD15
+rotation_distance = 40
+gear_ratio = 80:16
+microsteps = 32
+endstop_pin = ^PA0
+position_endstop = -0.5
+position_max = 310
+position_min = -5
+homing_speed = 8
+second_homing_speed = 3
+homing_retract_dist = 3
+
+[tmc2209 stepper_z]
+uart_pin = PD10
+interpolate = False
+run_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[stepper_z1]
+step_pin = PE6
+dir_pin = PC13
+enable_pin = !PE5
+rotation_distance = 40
+gear_ratio = 80:16
+microsteps = 32
+
+[tmc2209 stepper_z1]
+uart_pin = PC14
+interpolate = False
+run_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[stepper_z2]
+step_pin = PE2
+dir_pin = !PE4
+enable_pin = !PE3
+rotation_distance = 40
+gear_ratio = 80:16
+microsteps = 32
+
+[tmc2209 stepper_z2]
+uart_pin = PC15
+interpolate = False
+run_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[stepper_z3]
+step_pin = PD12
+dir_pin = PC4
+enable_pin = !PE8
+rotation_distance = 40
+gear_ratio = 80:16
+microsteps = 32
+
+[tmc2209 stepper_z3]
+uart_pin = PA15
+interpolate = False
+run_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[extruder]
+step_pin = PD5
+dir_pin = PD6
+enable_pin = !PD4
+rotation_distance = 22.6789511
+gear_ratio = 50:17
+microsteps = 32
+full_steps_per_rotation = 200
+nozzle_diameter = 0.400
+filament_diameter = 1.75
+heater_pin = PB15
+sensor_type = NTC 100K MGB18-104F39050L32
+sensor_pin = PC0
+min_temp = 10
+max_temp = 270
+max_power = 1.0
+min_extrude_temp = 170
+control = pid
+pid_kp = 26.213
+pid_ki = 1.304
+pid_kd = 131.721
+
+[tmc2209 extruder]
+uart_pin = PD7
+interpolate = false
+run_current = 0.5
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[heater_bed]
+heater_pin = PB4
+sensor_type = NTC 100K MGB18-104F39050L32
+sensor_pin = PB0
+max_power = 0.6
+min_temp = 0
+max_temp = 120
+control = pid
+pid_kp = 58.437
+pid_ki = 2.347
+pid_kd = 363.769
+
+[probe]
+pin = ^PA3
+x_offset = 0
+y_offset = 25.0
+z_offset = 0
+speed = 10.0
+samples = 3
+samples_result = median
+sample_retract_dist = 3.0
+samples_tolerance = 0.006
+samples_tolerance_retries = 3
+
+[heater_fan hotend_fan]
+pin = PA13
+max_power = 1.0
+heater = extruder
+heater_temp = 50.0
+
+[fan]
+pin = PA14
+kick_start_time = 0.5
+off_below = 0.10
+
+[heater_fan controller_fan]
+pin = PB2
+kick_start_time = 0.5
+heater = heater_bed
+heater_temp = 45.0
+
+[idle_timeout]
+timeout = 1800
+
+[safe_z_home]
+home_xy_position = 350.000 , 234.000
+speed = 100
+z_hop = 10
+
+[quad_gantry_level]
+gantry_corners = 
+	-60,-10
+	410,420
+points = 
+	50,25
+	50,275
+	300,275
+	300,25
+speed = 100
+horizontal_move_z = 10
+retries = 5
+retry_tolerance = 0.0075
+max_adjust = 10
+
+[display]
+lcd_type = uc1701
+cs_pin = PC11
+a0_pin = PD2
+rst_pin = PC10
+encoder_pins = ^PC6,^PC7
+click_pin = ^!PA8
+contrast = 63
+spi_software_mosi_pin = PA7
+spi_software_miso_pin = PA6
+spi_software_sclk_pin = PA5
+
+[neopixel fysetc_mini12864]
+pin = PC12
+chain_count = 3
+initial_red = 0.1
+initial_green = 0.5
+initial_blue = 0.0
+color_order = RGB
+
+[delayed_gcode setdisplayneopixel]
+initial_duration = 1
+gcode = 
+	SET_LED LED=fysetc_mini12864 RED=1 GREEN=1 BLUE=1 INDEX=1 TRANSMIT=0
+	SET_LED LED=fysetc_mini12864 RED=1 GREEN=0 BLUE=0 INDEX=2 TRANSMIT=0
+	SET_LED LED=fysetc_mini12864 RED=1 GREEN=0 BLUE=0 INDEX=3
+
+[gcode_macro PARK]
+gcode = 
+	{% set th = printer.toolhead %}
+	G0 X{th.axis_maximum.x//2} Y{th.axis_maximum.y//2} Z30
+
+[gcode_macro G32]
+gcode = 
+	SAVE_GCODE_STATE NAME=STATE_G32
+	G90
+	G28
+	QUAD_GANTRY_LEVEL
+	G28
+	PARK
+	RESTORE_GCODE_STATE NAME=STATE_G32
+
+[gcode_macro PRINT_START]
+gcode = 
+	G32                            ; home all axes
+	G90                            ; absolute positioning
+	G1 Z20 F3000                   ; move nozzle away from bed
+
+[gcode_macro PRINT_END]
+gcode = 
+	{% set th = printer.toolhead %}
+	{% set x_safe = th.position.x + 20 * (1 if th.axis_maximum.x - th.position.x > 20 else -1) %}
+	{% set y_safe = th.position.y + 20 * (1 if th.axis_maximum.y - th.position.y > 20 else -1) %}
+	{% set z_safe = [th.position.z + 2, th.axis_maximum.z]|min %}
+	SAVE_GCODE_STATE NAME=STATE_PRINT_END
+	M400                           ; wait for buffer to clear
+	G92 E0                         ; zero the extruder
+	G1 E-5.0 F1800                 ; retract filament
+	TURN_OFF_HEATERS
+	G90                                      ; absolute positioning
+	G0 X{x_safe} Y{y_safe} Z{z_safe} F20000  ; move nozzle to remove stringing
+	G0 X{th.axis_maximum.x//2} Y{th.axis_maximum.y - 2} F3600  ; park nozzle at rear
+	M107                                     ; turn off fan
+	BED_MESH_CLEAR
+	RESTORE_GCODE_STATE NAME=STATE_PRINT_END
+=======================
+Extruder max_extrude_ratio=0.266081
+mcu 'mcu': Starting serial connect
+webhooks client 548383051360: New connection
+webhooks client 548383051360: Client info {'program': 'Moonraker', 'version': 'v0.8.0-39-g6c7dfe5'}
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+MCU error during connect
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/klippy.py", line 176, in _connect
+    self.send_event("klippy:mcu_identify")
+  File "/home/da_huo_shi_/klipper/klippy/klippy.py", line 263, in send_event
+    return [cb(*params) for cb in self.event_handlers.get(event, [])]
+  File "/home/da_huo_shi_/klipper/klippy/mcu.py", line 803, in _mcu_identify
+    raise error(str(e))
+error: mcu 'mcu': Unable to connect
+Build file /home/da_huo_shi_/klipper/klippy/../.config(3114): Sun May  7 08:48:58 2023
+========= Last MCU build config =========
+CONFIG_LOW_LEVEL_OPTIONS=y
+# CONFIG_MACH_AVR is not set
+# CONFIG_MACH_ATSAM is not set
+# CONFIG_MACH_ATSAMD is not set
+# CONFIG_MACH_LPC176X is not set
+CONFIG_MACH_STM32=y
+# CONFIG_MACH_HC32F460 is not set
+# CONFIG_MACH_RP2040 is not set
+# CONFIG_MACH_PRU is not set
+# CONFIG_MACH_AR100 is not set
+# CONFIG_MACH_LINUX is not set
+# CONFIG_MACH_SIMU is not set
+CONFIG_BOARD_DIRECTORY="stm32"
+CONFIG_MCU="stm32f446xx"
+CONFIG_CLOCK_FREQ=180000000
+CONFIG_SERIAL=y
+CONFIG_FLASH_SIZE=0x80000
+CONFIG_FLASH_BOOT_ADDRESS=0x8000000
+CONFIG_RAM_START=0x20000000
+CONFIG_RAM_SIZE=0x20000
+CONFIG_STACK_SIZE=512
+CONFIG_FLASH_APPLICATION_ADDRESS=0x8008000
+CONFIG_STM32_SELECT=y
+# CONFIG_MACH_STM32F103 is not set
+# CONFIG_MACH_STM32F207 is not set
+# CONFIG_MACH_STM32F401 is not set
+# CONFIG_MACH_STM32F405 is not set
+# CONFIG_MACH_STM32F407 is not set
+# CONFIG_MACH_STM32F429 is not set
+CONFIG_MACH_STM32F446=y
+# CONFIG_MACH_STM32F031 is not set
+# CONFIG_MACH_STM32F042 is not set
+# CONFIG_MACH_STM32F070 is not set
+# CONFIG_MACH_STM32F072 is not set
+# CONFIG_MACH_STM32G070 is not set
+# CONFIG_MACH_STM32G071 is not set
+# CONFIG_MACH_STM32G0B0 is not set
+# CONFIG_MACH_STM32G0B1 is not set
+# CONFIG_MACH_STM32G431 is not set
+# CONFIG_MACH_STM32H723 is not set
+# CONFIG_MACH_STM32H743 is not set
+# CONFIG_MACH_STM32H750 is not set
+# CONFIG_MACH_STM32L412 is not set
+# CONFIG_MACH_N32G452 is not set
+# CONFIG_MACH_N32G455 is not set
+CONFIG_MACH_STM32F4=y
+CONFIG_HAVE_STM32_USBOTG=y
+CONFIG_HAVE_STM32_CANBUS=y
+CONFIG_HAVE_STM32_USBCANBUS=y
+CONFIG_STM32_DFU_ROM_ADDRESS=0
+CONFIG_STM32_FLASH_START_8000=y
+# CONFIG_STM32_FLASH_START_10000 is not set
+# CONFIG_STM32_FLASH_START_0000 is not set
+# CONFIG_STM32_CLOCK_REF_8M is not set
+CONFIG_STM32_CLOCK_REF_12M=y
+# CONFIG_STM32_CLOCK_REF_16M is not set
+# CONFIG_STM32_CLOCK_REF_20M is not set
+# CONFIG_STM32_CLOCK_REF_25M is not set
+# CONFIG_STM32_CLOCK_REF_INTERNAL is not set
+CONFIG_CLOCK_REF_FREQ=12000000
+CONFIG_STM32F0_TRIM=16
+# CONFIG_STM32_USB_PA11_PA12 is not set
+CONFIG_STM32_SERIAL_USART1=y
+# CONFIG_STM32_SERIAL_USART1_ALT_PB7_PB6 is not set
+# CONFIG_STM32_SERIAL_USART2 is not set
+# CONFIG_STM32_SERIAL_USART2_ALT_PD6_PD5 is not set
+# CONFIG_STM32_SERIAL_USART3 is not set
+# CONFIG_STM32_SERIAL_USART3_ALT_PD9_PD8 is not set
+# CONFIG_STM32_CANBUS_PA11_PA12 is not set
+# CONFIG_STM32_CANBUS_PA11_PB9 is not set
+# CONFIG_STM32_MMENU_CANBUS_PB8_PB9 is not set
+# CONFIG_STM32_MMENU_CANBUS_PI9_PH13 is not set
+# CONFIG_STM32_MMENU_CANBUS_PB5_PB6 is not set
+# CONFIG_STM32_MMENU_CANBUS_PB12_PB13 is not set
+# CONFIG_STM32_MMENU_CANBUS_PD0_PD1 is not set
+# CONFIG_STM32_USBCANBUS_PA11_PA12 is not set
+CONFIG_SERIAL_BAUD=250000
+CONFIG_USB_VENDOR_ID=0x1d50
+CONFIG_USB_DEVICE_ID=0x614e
+CONFIG_USB_SERIAL_NUMBER="12345"
+CONFIG_CANBUS_FREQUENCY=500000
+CONFIG_INITIAL_PINS=""
+CONFIG_HAVE_GPIO=y
+CONFIG_HAVE_GPIO_ADC=y
+CONFIG_HAVE_GPIO_SPI=y
+CONFIG_HAVE_GPIO_SDIO=y
+CONFIG_HAVE_GPIO_I2C=y
+CONFIG_HAVE_GPIO_HARD_PWM=y
+CONFIG_HAVE_GPIO_BITBANGING=y
+CONFIG_HAVE_STRICT_TIMING=y
+CONFIG_HAVE_CHIPID=y
+CONFIG_HAVE_STEPPER_BOTH_EDGE=y
+CONFIG_HAVE_BOOTLOADER_REQUEST=y
+CONFIG_INLINE_STEPPER_HACK=y
+=======================
+Build file /home/da_huo_shi_/klipper/klippy/../out/klipper.dict(8445): Sun May  7 08:49:21 2023
+Last MCU build version: v0.11.0-197-ga3eebab4
+Last MCU build tools: gcc: (15:8-2019-q3-1+b1) 8.3.1 20190703 (release) [gcc-8-branch revision 273027] binutils: (2.35.2-2+14+b2) 2.35.2
+Last MCU build config: BUS_PINS_spi2a=PC2,PC3,PB10 SERIAL_BAUD=250000 CLOCK_FREQ=180000000 BUS_PINS_sdio=PC12,PD2,PC8,PC9,PC10,PC11 STEPPER_BOTH_EDGE=1 ADC_MAX=4095 PWM_MAX=255 RESERVE_PINS_crystal=PH0,PH1 BUS_PINS_i2c1=PB6,PB7 BUS_PINS_i2c3=PA8,PC9 BUS_PINS_i2c2=PB10,PB11 BUS_PINS_spi3a=PC11,PC12,PC10 BUS_PINS_i2c1a=PB8,PB9 RESERVE_PINS_serial=PA10,PA9 BUS_PINS_spi1a=PB4,PB5,PB3 STATS_SUMSQ_BASE=256 RECEIVE_WINDOW=192 BUS_PINS_spi4=PE13,PE14,PE12 BUS_PINS_spi3=PB4,PB5,PB3 BUS_PINS_spi2=PB14,PB15,PB13 BUS_PINS_spi1=PA6,PA7,PA5 MCU=stm32f446xx
+Build file /home/da_huo_shi_/klipper/klippy/../out/klipper.elf(1227948): Sun May  7 08:49:28 2023
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+Starting Klippy...
+Args: ['/home/da_huo_shi_/klipper/klippy/klippy.py', '/home/da_huo_shi_/klipper_config/printer.cfg', '-I', '/tmp/printer', '-l', '/home/da_huo_shi_/klipper_logs/klippy.log', '-a', '/tmp/klippy_uds']
+Git version: 'v0.11.0-197-ga3eebab4'
+Branch: master
+Remote: origin
+Tracked URL: https://github.com/Klipper3d/klipper.git
+CPU: 4 core ?
+Python: '2.7.18 (default, Jul 14 2021, 08:11:37) \n[GCC 10.2.1 20210110]'
+Start printer at Sun May  7 09:17:10 2023 (1683422230.9 10.2)
+===== Config file =====
+[mcu]
+serial = /dev/ttyAMA0
+
+[virtual_sdcard]
+path = /home/da_huo_shi_/printer_data/gcodes
+
+[display_status]
+
+[pause_resume]
+
+[gcode_macro CANCEL_PRINT]
+description = Cancel the actual running print
+rename_existing = CANCEL_PRINT_BASE
+gcode = 
+	TURN_OFF_HEATERS
+	CANCEL_PRINT_BASE
+
+[printer]
+kinematics = corexy
+max_velocity = 300
+max_accel = 3000
+max_z_velocity = 15
+max_z_accel = 350
+square_corner_velocity = 5.0
+
+[stepper_x]
+step_pin = PE11
+dir_pin = !PE10
+enable_pin = !PE9
+rotation_distance = 40
+microsteps = 32
+full_steps_per_rotation = 200
+endstop_pin = ^PB13
+position_min = 0
+position_endstop = 350
+position_max = 350
+homing_speed = 25
+homing_retract_dist = 5
+homing_positive_dir = true
+
+[tmc2209 stepper_x]
+uart_pin = PE7
+interpolate = False
+run_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[stepper_y]
+step_pin = PD8
+dir_pin = PB12
+enable_pin = !PD9
+rotation_distance = 40
+microsteps = 32
+full_steps_per_rotation = 200
+endstop_pin = ^PB14
+position_min = 0
+position_endstop = 350
+position_max = 350
+homing_speed = 25
+homing_retract_dist = 5
+homing_positive_dir = true
+
+[tmc2209 stepper_y]
+uart_pin = PE15
+interpolate = False
+run_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[stepper_z]
+step_pin = PD14
+dir_pin = !PD13
+enable_pin = !PD15
+rotation_distance = 40
+gear_ratio = 80:16
+microsteps = 32
+endstop_pin = ^PA0
+position_endstop = -0.5
+position_max = 310
+position_min = -5
+homing_speed = 8
+second_homing_speed = 3
+homing_retract_dist = 3
+
+[tmc2209 stepper_z]
+uart_pin = PD10
+interpolate = False
+run_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[stepper_z1]
+step_pin = PE6
+dir_pin = PC13
+enable_pin = !PE5
+rotation_distance = 40
+gear_ratio = 80:16
+microsteps = 32
+
+[tmc2209 stepper_z1]
+uart_pin = PC14
+interpolate = False
+run_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[stepper_z2]
+step_pin = PE2
+dir_pin = !PE4
+enable_pin = !PE3
+rotation_distance = 40
+gear_ratio = 80:16
+microsteps = 32
+
+[tmc2209 stepper_z2]
+uart_pin = PC15
+interpolate = False
+run_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[stepper_z3]
+step_pin = PD12
+dir_pin = PC4
+enable_pin = !PE8
+rotation_distance = 40
+gear_ratio = 80:16
+microsteps = 32
+
+[tmc2209 stepper_z3]
+uart_pin = PA15
+interpolate = False
+run_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[extruder]
+step_pin = PD5
+dir_pin = PD6
+enable_pin = !PD4
+rotation_distance = 22.6789511
+gear_ratio = 50:17
+microsteps = 32
+full_steps_per_rotation = 200
+nozzle_diameter = 0.400
+filament_diameter = 1.75
+heater_pin = PB15
+sensor_type = NTC 100K MGB18-104F39050L32
+sensor_pin = PC0
+min_temp = 10
+max_temp = 270
+max_power = 1.0
+min_extrude_temp = 170
+control = pid
+pid_kp = 26.213
+pid_ki = 1.304
+pid_kd = 131.721
+
+[tmc2209 extruder]
+uart_pin = PD7
+interpolate = false
+run_current = 0.5
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[heater_bed]
+heater_pin = PB4
+sensor_type = NTC 100K MGB18-104F39050L32
+sensor_pin = PB0
+max_power = 0.6
+min_temp = 0
+max_temp = 120
+control = pid
+pid_kp = 58.437
+pid_ki = 2.347
+pid_kd = 363.769
+
+[probe]
+pin = ^PA3
+x_offset = 0
+y_offset = 25.0
+z_offset = 0
+speed = 10.0
+samples = 3
+samples_result = median
+sample_retract_dist = 3.0
+samples_tolerance = 0.006
+samples_tolerance_retries = 3
+
+[heater_fan hotend_fan]
+pin = PA13
+max_power = 1.0
+heater = extruder
+heater_temp = 50.0
+
+[fan]
+pin = PA14
+kick_start_time = 0.5
+off_below = 0.10
+
+[heater_fan controller_fan]
+pin = PB2
+kick_start_time = 0.5
+heater = heater_bed
+heater_temp = 45.0
+
+[idle_timeout]
+timeout = 1800
+
+[safe_z_home]
+home_xy_position = 350.000 , 234.000
+speed = 100
+z_hop = 10
+
+[quad_gantry_level]
+gantry_corners = 
+	-60,-10
+	410,420
+points = 
+	50,25
+	50,275
+	300,275
+	300,25
+speed = 100
+horizontal_move_z = 10
+retries = 5
+retry_tolerance = 0.0075
+max_adjust = 10
+
+[display]
+lcd_type = uc1701
+cs_pin = PC11
+a0_pin = PD2
+rst_pin = PC10
+encoder_pins = ^PC6,^PC7
+click_pin = ^!PA8
+contrast = 63
+spi_software_mosi_pin = PA7
+spi_software_miso_pin = PA6
+spi_software_sclk_pin = PA5
+
+[neopixel fysetc_mini12864]
+pin = PC12
+chain_count = 3
+initial_red = 0.1
+initial_green = 0.5
+initial_blue = 0.0
+color_order = RGB
+
+[delayed_gcode setdisplayneopixel]
+initial_duration = 1
+gcode = 
+	SET_LED LED=fysetc_mini12864 RED=1 GREEN=1 BLUE=1 INDEX=1 TRANSMIT=0
+	SET_LED LED=fysetc_mini12864 RED=1 GREEN=0 BLUE=0 INDEX=2 TRANSMIT=0
+	SET_LED LED=fysetc_mini12864 RED=1 GREEN=0 BLUE=0 INDEX=3
+
+[gcode_macro PARK]
+gcode = 
+	{% set th = printer.toolhead %}
+	G0 X{th.axis_maximum.x//2} Y{th.axis_maximum.y//2} Z30
+
+[gcode_macro G32]
+gcode = 
+	SAVE_GCODE_STATE NAME=STATE_G32
+	G90
+	G28
+	QUAD_GANTRY_LEVEL
+	G28
+	PARK
+	RESTORE_GCODE_STATE NAME=STATE_G32
+
+[gcode_macro PRINT_START]
+gcode = 
+	G32                            ; home all axes
+	G90                            ; absolute positioning
+	G1 Z20 F3000                   ; move nozzle away from bed
+
+[gcode_macro PRINT_END]
+gcode = 
+	{% set th = printer.toolhead %}
+	{% set x_safe = th.position.x + 20 * (1 if th.axis_maximum.x - th.position.x > 20 else -1) %}
+	{% set y_safe = th.position.y + 20 * (1 if th.axis_maximum.y - th.position.y > 20 else -1) %}
+	{% set z_safe = [th.position.z + 2, th.axis_maximum.z]|min %}
+	SAVE_GCODE_STATE NAME=STATE_PRINT_END
+	M400                           ; wait for buffer to clear
+	G92 E0                         ; zero the extruder
+	G1 E-5.0 F1800                 ; retract filament
+	TURN_OFF_HEATERS
+	G90                                      ; absolute positioning
+	G0 X{x_safe} Y{y_safe} Z{z_safe} F20000  ; move nozzle to remove stringing
+	G0 X{th.axis_maximum.x//2} Y{th.axis_maximum.y - 2} F3600  ; park nozzle at rear
+	M107                                     ; turn off fan
+	BED_MESH_CLEAR
+	RESTORE_GCODE_STATE NAME=STATE_PRINT_END
+=======================
+Extruder max_extrude_ratio=0.266081
+mcu 'mcu': Starting serial connect
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+Got error -1 in read: (11)Resource temporarily unavailable
+webhooks client 548085394400: New connection
+webhooks client 548085394400: Client info {'program': 'Moonraker', 'version': 'v0.8.0-39-g6c7dfe5'}
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+MCU error during connect
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/klippy.py", line 176, in _connect
+    self.send_event("klippy:mcu_identify")
+  File "/home/da_huo_shi_/klipper/klippy/klippy.py", line 263, in send_event
+    return [cb(*params) for cb in self.event_handlers.get(event, [])]
+  File "/home/da_huo_shi_/klipper/klippy/mcu.py", line 803, in _mcu_identify
+    raise error(str(e))
+error: mcu 'mcu': Unable to connect
+Build file /home/da_huo_shi_/klipper/klippy/../.config(3114): Sun May  7 09:18:13 2023
+========= Last MCU build config =========
+CONFIG_LOW_LEVEL_OPTIONS=y
+# CONFIG_MACH_AVR is not set
+# CONFIG_MACH_ATSAM is not set
+# CONFIG_MACH_ATSAMD is not set
+# CONFIG_MACH_LPC176X is not set
+CONFIG_MACH_STM32=y
+# CONFIG_MACH_HC32F460 is not set
+# CONFIG_MACH_RP2040 is not set
+# CONFIG_MACH_PRU is not set
+# CONFIG_MACH_AR100 is not set
+# CONFIG_MACH_LINUX is not set
+# CONFIG_MACH_SIMU is not set
+CONFIG_BOARD_DIRECTORY="stm32"
+CONFIG_MCU="stm32f446xx"
+CONFIG_CLOCK_FREQ=180000000
+CONFIG_SERIAL=y
+CONFIG_FLASH_SIZE=0x80000
+CONFIG_FLASH_BOOT_ADDRESS=0x8000000
+CONFIG_RAM_START=0x20000000
+CONFIG_RAM_SIZE=0x20000
+CONFIG_STACK_SIZE=512
+CONFIG_FLASH_APPLICATION_ADDRESS=0x8008000
+CONFIG_STM32_SELECT=y
+# CONFIG_MACH_STM32F103 is not set
+# CONFIG_MACH_STM32F207 is not set
+# CONFIG_MACH_STM32F401 is not set
+# CONFIG_MACH_STM32F405 is not set
+# CONFIG_MACH_STM32F407 is not set
+# CONFIG_MACH_STM32F429 is not set
+CONFIG_MACH_STM32F446=y
+# CONFIG_MACH_STM32F031 is not set
+# CONFIG_MACH_STM32F042 is not set
+# CONFIG_MACH_STM32F070 is not set
+# CONFIG_MACH_STM32F072 is not set
+# CONFIG_MACH_STM32G070 is not set
+# CONFIG_MACH_STM32G071 is not set
+# CONFIG_MACH_STM32G0B0 is not set
+# CONFIG_MACH_STM32G0B1 is not set
+# CONFIG_MACH_STM32G431 is not set
+# CONFIG_MACH_STM32H723 is not set
+# CONFIG_MACH_STM32H743 is not set
+# CONFIG_MACH_STM32H750 is not set
+# CONFIG_MACH_STM32L412 is not set
+# CONFIG_MACH_N32G452 is not set
+# CONFIG_MACH_N32G455 is not set
+CONFIG_MACH_STM32F4=y
+CONFIG_HAVE_STM32_USBOTG=y
+CONFIG_HAVE_STM32_CANBUS=y
+CONFIG_HAVE_STM32_USBCANBUS=y
+CONFIG_STM32_DFU_ROM_ADDRESS=0
+CONFIG_STM32_FLASH_START_8000=y
+# CONFIG_STM32_FLASH_START_10000 is not set
+# CONFIG_STM32_FLASH_START_0000 is not set
+# CONFIG_STM32_CLOCK_REF_8M is not set
+CONFIG_STM32_CLOCK_REF_12M=y
+# CONFIG_STM32_CLOCK_REF_16M is not set
+# CONFIG_STM32_CLOCK_REF_20M is not set
+# CONFIG_STM32_CLOCK_REF_25M is not set
+# CONFIG_STM32_CLOCK_REF_INTERNAL is not set
+CONFIG_CLOCK_REF_FREQ=12000000
+CONFIG_STM32F0_TRIM=16
+# CONFIG_STM32_USB_PA11_PA12 is not set
+CONFIG_STM32_SERIAL_USART1=y
+# CONFIG_STM32_SERIAL_USART1_ALT_PB7_PB6 is not set
+# CONFIG_STM32_SERIAL_USART2 is not set
+# CONFIG_STM32_SERIAL_USART2_ALT_PD6_PD5 is not set
+# CONFIG_STM32_SERIAL_USART3 is not set
+# CONFIG_STM32_SERIAL_USART3_ALT_PD9_PD8 is not set
+# CONFIG_STM32_CANBUS_PA11_PA12 is not set
+# CONFIG_STM32_CANBUS_PA11_PB9 is not set
+# CONFIG_STM32_MMENU_CANBUS_PB8_PB9 is not set
+# CONFIG_STM32_MMENU_CANBUS_PI9_PH13 is not set
+# CONFIG_STM32_MMENU_CANBUS_PB5_PB6 is not set
+# CONFIG_STM32_MMENU_CANBUS_PB12_PB13 is not set
+# CONFIG_STM32_MMENU_CANBUS_PD0_PD1 is not set
+# CONFIG_STM32_USBCANBUS_PA11_PA12 is not set
+CONFIG_SERIAL_BAUD=250000
+CONFIG_USB_VENDOR_ID=0x1d50
+CONFIG_USB_DEVICE_ID=0x614e
+CONFIG_USB_SERIAL_NUMBER="12345"
+CONFIG_CANBUS_FREQUENCY=500000
+CONFIG_INITIAL_PINS=""
+CONFIG_HAVE_GPIO=y
+CONFIG_HAVE_GPIO_ADC=y
+CONFIG_HAVE_GPIO_SPI=y
+CONFIG_HAVE_GPIO_SDIO=y
+CONFIG_HAVE_GPIO_I2C=y
+CONFIG_HAVE_GPIO_HARD_PWM=y
+CONFIG_HAVE_GPIO_BITBANGING=y
+CONFIG_HAVE_STRICT_TIMING=y
+CONFIG_HAVE_CHIPID=y
+CONFIG_HAVE_STEPPER_BOTH_EDGE=y
+CONFIG_HAVE_BOOTLOADER_REQUEST=y
+CONFIG_INLINE_STEPPER_HACK=y
+=======================
+Build file /home/da_huo_shi_/klipper/klippy/../out/klipper.dict(8445): Sun May  7 09:18:30 2023
+Last MCU build version: v0.11.0-197-ga3eebab4
+Last MCU build tools: gcc: (15:8-2019-q3-1+b1) 8.3.1 20190703 (release) [gcc-8-branch revision 273027] binutils: (2.35.2-2+14+b2) 2.35.2
+Last MCU build config: BUS_PINS_spi2a=PC2,PC3,PB10 SERIAL_BAUD=250000 CLOCK_FREQ=180000000 BUS_PINS_sdio=PC12,PD2,PC8,PC9,PC10,PC11 STEPPER_BOTH_EDGE=1 ADC_MAX=4095 PWM_MAX=255 RESERVE_PINS_crystal=PH0,PH1 BUS_PINS_i2c1=PB6,PB7 BUS_PINS_i2c3=PA8,PC9 BUS_PINS_i2c2=PB10,PB11 BUS_PINS_spi3a=PC11,PC12,PC10 BUS_PINS_i2c1a=PB8,PB9 RESERVE_PINS_serial=PA10,PA9 BUS_PINS_spi1a=PB4,PB5,PB3 STATS_SUMSQ_BASE=256 RECEIVE_WINDOW=192 BUS_PINS_spi4=PE13,PE14,PE12 BUS_PINS_spi3=PB4,PB5,PB3 BUS_PINS_spi2=PB14,PB15,PB13 BUS_PINS_spi1=PA6,PA7,PA5 MCU=stm32f446xx
+Build file /home/da_huo_shi_/klipper/klippy/../out/klipper.elf(1227948): Sun May  7 09:18:36 2023
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+Starting Klippy...
+Args: ['/home/da_huo_shi_/klipper/klippy/klippy.py', '/home/da_huo_shi_/klipper_config/printer.cfg', '-I', '/tmp/printer', '-l', '/home/da_huo_shi_/klipper_logs/klippy.log', '-a', '/tmp/klippy_uds']
+Git version: 'v0.11.0-197-ga3eebab4'
+Branch: master
+Remote: origin
+Tracked URL: https://github.com/Klipper3d/klipper.git
+CPU: 4 core ?
+Python: '2.7.18 (default, Jul 14 2021, 08:11:37) \n[GCC 10.2.1 20210110]'
+Start printer at Sun May  7 09:30:34 2023 (1683423034.6 10.2)
+===== Config file =====
+[mcu]
+serial = /dev/ttyAMA0
+
+[virtual_sdcard]
+path = /home/da_huo_shi_/printer_data/gcodes
+
+[display_status]
+
+[pause_resume]
+
+[gcode_macro CANCEL_PRINT]
+description = Cancel the actual running print
+rename_existing = CANCEL_PRINT_BASE
+gcode = 
+	TURN_OFF_HEATERS
+	CANCEL_PRINT_BASE
+
+[printer]
+kinematics = corexy
+max_velocity = 300
+max_accel = 3000
+max_z_velocity = 15
+max_z_accel = 350
+square_corner_velocity = 5.0
+
+[stepper_x]
+step_pin = PE11
+dir_pin = !PE10
+enable_pin = !PE9
+rotation_distance = 40
+microsteps = 32
+full_steps_per_rotation = 200
+endstop_pin = ^PB13
+position_min = 0
+position_endstop = 350
+position_max = 350
+homing_speed = 25
+homing_retract_dist = 5
+homing_positive_dir = true
+
+[tmc2209 stepper_x]
+uart_pin = PE7
+interpolate = False
+run_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[stepper_y]
+step_pin = PD8
+dir_pin = PB12
+enable_pin = !PD9
+rotation_distance = 40
+microsteps = 32
+full_steps_per_rotation = 200
+endstop_pin = ^PB14
+position_min = 0
+position_endstop = 350
+position_max = 350
+homing_speed = 25
+homing_retract_dist = 5
+homing_positive_dir = true
+
+[tmc2209 stepper_y]
+uart_pin = PE15
+interpolate = False
+run_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[stepper_z]
+step_pin = PD14
+dir_pin = !PD13
+enable_pin = !PD15
+rotation_distance = 40
+gear_ratio = 80:16
+microsteps = 32
+endstop_pin = ^PA0
+position_endstop = -0.5
+position_max = 310
+position_min = -5
+homing_speed = 8
+second_homing_speed = 3
+homing_retract_dist = 3
+
+[tmc2209 stepper_z]
+uart_pin = PD10
+interpolate = False
+run_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[stepper_z1]
+step_pin = PE6
+dir_pin = PC13
+enable_pin = !PE5
+rotation_distance = 40
+gear_ratio = 80:16
+microsteps = 32
+
+[tmc2209 stepper_z1]
+uart_pin = PC14
+interpolate = False
+run_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[stepper_z2]
+step_pin = PE2
+dir_pin = !PE4
+enable_pin = !PE3
+rotation_distance = 40
+gear_ratio = 80:16
+microsteps = 32
+
+[tmc2209 stepper_z2]
+uart_pin = PC15
+interpolate = False
+run_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[stepper_z3]
+step_pin = PD12
+dir_pin = PC4
+enable_pin = !PE8
+rotation_distance = 40
+gear_ratio = 80:16
+microsteps = 32
+
+[tmc2209 stepper_z3]
+uart_pin = PA15
+interpolate = False
+run_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[extruder]
+step_pin = PD5
+dir_pin = PD6
+enable_pin = !PD4
+rotation_distance = 22.6789511
+gear_ratio = 50:17
+microsteps = 32
+full_steps_per_rotation = 200
+nozzle_diameter = 0.400
+filament_diameter = 1.75
+heater_pin = PB15
+sensor_type = NTC 100K MGB18-104F39050L32
+sensor_pin = PC0
+min_temp = 10
+max_temp = 270
+max_power = 1.0
+min_extrude_temp = 170
+control = pid
+pid_kp = 26.213
+pid_ki = 1.304
+pid_kd = 131.721
+
+[tmc2209 extruder]
+uart_pin = PD7
+interpolate = false
+run_current = 0.5
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[heater_bed]
+heater_pin = PB4
+sensor_type = NTC 100K MGB18-104F39050L32
+sensor_pin = PB0
+max_power = 0.6
+min_temp = 0
+max_temp = 120
+control = pid
+pid_kp = 58.437
+pid_ki = 2.347
+pid_kd = 363.769
+
+[probe]
+pin = ^PA3
+x_offset = 0
+y_offset = 25.0
+z_offset = 0
+speed = 10.0
+samples = 3
+samples_result = median
+sample_retract_dist = 3.0
+samples_tolerance = 0.006
+samples_tolerance_retries = 3
+
+[heater_fan hotend_fan]
+pin = PA13
+max_power = 1.0
+heater = extruder
+heater_temp = 50.0
+
+[fan]
+pin = PA14
+kick_start_time = 0.5
+off_below = 0.10
+
+[heater_fan controller_fan]
+pin = PB2
+kick_start_time = 0.5
+heater = heater_bed
+heater_temp = 45.0
+
+[idle_timeout]
+timeout = 1800
+
+[safe_z_home]
+home_xy_position = 350.000 , 234.000
+speed = 100
+z_hop = 10
+
+[quad_gantry_level]
+gantry_corners = 
+	-60,-10
+	410,420
+points = 
+	50,25
+	50,275
+	300,275
+	300,25
+speed = 100
+horizontal_move_z = 10
+retries = 5
+retry_tolerance = 0.0075
+max_adjust = 10
+
+[display]
+lcd_type = uc1701
+cs_pin = PC11
+a0_pin = PD2
+rst_pin = PC10
+encoder_pins = ^PC6,^PC7
+click_pin = ^!PA8
+contrast = 63
+spi_software_mosi_pin = PA7
+spi_software_miso_pin = PA6
+spi_software_sclk_pin = PA5
+
+[neopixel fysetc_mini12864]
+pin = PC12
+chain_count = 3
+initial_red = 0.1
+initial_green = 0.5
+initial_blue = 0.0
+color_order = RGB
+
+[delayed_gcode setdisplayneopixel]
+initial_duration = 1
+gcode = 
+	SET_LED LED=fysetc_mini12864 RED=1 GREEN=1 BLUE=1 INDEX=1 TRANSMIT=0
+	SET_LED LED=fysetc_mini12864 RED=1 GREEN=0 BLUE=0 INDEX=2 TRANSMIT=0
+	SET_LED LED=fysetc_mini12864 RED=1 GREEN=0 BLUE=0 INDEX=3
+
+[gcode_macro PARK]
+gcode = 
+	{% set th = printer.toolhead %}
+	G0 X{th.axis_maximum.x//2} Y{th.axis_maximum.y//2} Z30
+
+[gcode_macro G32]
+gcode = 
+	SAVE_GCODE_STATE NAME=STATE_G32
+	G90
+	G28
+	QUAD_GANTRY_LEVEL
+	G28
+	PARK
+	RESTORE_GCODE_STATE NAME=STATE_G32
+
+[gcode_macro PRINT_START]
+gcode = 
+	G32                            ; home all axes
+	G90                            ; absolute positioning
+	G1 Z20 F3000                   ; move nozzle away from bed
+
+[gcode_macro PRINT_END]
+gcode = 
+	{% set th = printer.toolhead %}
+	{% set x_safe = th.position.x + 20 * (1 if th.axis_maximum.x - th.position.x > 20 else -1) %}
+	{% set y_safe = th.position.y + 20 * (1 if th.axis_maximum.y - th.position.y > 20 else -1) %}
+	{% set z_safe = [th.position.z + 2, th.axis_maximum.z]|min %}
+	SAVE_GCODE_STATE NAME=STATE_PRINT_END
+	M400                           ; wait for buffer to clear
+	G92 E0                         ; zero the extruder
+	G1 E-5.0 F1800                 ; retract filament
+	TURN_OFF_HEATERS
+	G90                                      ; absolute positioning
+	G0 X{x_safe} Y{y_safe} Z{z_safe} F20000  ; move nozzle to remove stringing
+	G0 X{th.axis_maximum.x//2} Y{th.axis_maximum.y - 2} F3600  ; park nozzle at rear
+	M107                                     ; turn off fan
+	BED_MESH_CLEAR
+	RESTORE_GCODE_STATE NAME=STATE_PRINT_END
+=======================
+Extruder max_extrude_ratio=0.266081
+mcu 'mcu': Starting serial connect
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+Got error -1 in read: (11)Resource temporarily unavailable
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+webhooks client 547873985312: New connection
+webhooks client 547873985312: Client info {'program': 'Moonraker', 'version': 'v0.8.0-39-g6c7dfe5'}
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+Starting Klippy...
+Args: ['/home/da_huo_shi_/klipper/klippy/klippy.py', '/home/da_huo_shi_/klipper_config/printer.cfg', '-I', '/tmp/printer', '-l', '/home/da_huo_shi_/klipper_logs/klippy.log', '-a', '/tmp/klippy_uds']
+Git version: 'v0.11.0-197-ga3eebab4'
+Branch: master
+Remote: origin
+Tracked URL: https://github.com/Klipper3d/klipper.git
+CPU: 4 core ?
+Python: '2.7.18 (default, Jul 14 2021, 08:11:37) \n[GCC 10.2.1 20210110]'
+Start printer at Sun May  7 09:33:31 2023 (1683423211.6 10.1)
+===== Config file =====
+[mcu]
+serial = /dev/ttyAMA0
+
+[virtual_sdcard]
+path = /home/da_huo_shi_/printer_data/gcodes
+
+[display_status]
+
+[pause_resume]
+
+[gcode_macro CANCEL_PRINT]
+description = Cancel the actual running print
+rename_existing = CANCEL_PRINT_BASE
+gcode = 
+	TURN_OFF_HEATERS
+	CANCEL_PRINT_BASE
+
+[printer]
+kinematics = corexy
+max_velocity = 300
+max_accel = 3000
+max_z_velocity = 15
+max_z_accel = 350
+square_corner_velocity = 5.0
+
+[stepper_x]
+step_pin = PE11
+dir_pin = !PE10
+enable_pin = !PE9
+rotation_distance = 40
+microsteps = 32
+full_steps_per_rotation = 200
+endstop_pin = ^PB13
+position_min = 0
+position_endstop = 350
+position_max = 350
+homing_speed = 25
+homing_retract_dist = 5
+homing_positive_dir = true
+
+[tmc2209 stepper_x]
+uart_pin = PE7
+interpolate = False
+run_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[stepper_y]
+step_pin = PD8
+dir_pin = PB12
+enable_pin = !PD9
+rotation_distance = 40
+microsteps = 32
+full_steps_per_rotation = 200
+endstop_pin = ^PB14
+position_min = 0
+position_endstop = 350
+position_max = 350
+homing_speed = 25
+homing_retract_dist = 5
+homing_positive_dir = true
+
+[tmc2209 stepper_y]
+uart_pin = PE15
+interpolate = False
+run_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[stepper_z]
+step_pin = PD14
+dir_pin = !PD13
+enable_pin = !PD15
+rotation_distance = 40
+gear_ratio = 80:16
+microsteps = 32
+endstop_pin = ^PA0
+position_endstop = -0.5
+position_max = 310
+position_min = -5
+homing_speed = 8
+second_homing_speed = 3
+homing_retract_dist = 3
+
+[tmc2209 stepper_z]
+uart_pin = PD10
+interpolate = False
+run_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[stepper_z1]
+step_pin = PE6
+dir_pin = PC13
+enable_pin = !PE5
+rotation_distance = 40
+gear_ratio = 80:16
+microsteps = 32
+
+[tmc2209 stepper_z1]
+uart_pin = PC14
+interpolate = False
+run_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[stepper_z2]
+step_pin = PE2
+dir_pin = !PE4
+enable_pin = !PE3
+rotation_distance = 40
+gear_ratio = 80:16
+microsteps = 32
+
+[tmc2209 stepper_z2]
+uart_pin = PC15
+interpolate = False
+run_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[stepper_z3]
+step_pin = PD12
+dir_pin = PC4
+enable_pin = !PE8
+rotation_distance = 40
+gear_ratio = 80:16
+microsteps = 32
+
+[tmc2209 stepper_z3]
+uart_pin = PA15
+interpolate = False
+run_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[extruder]
+step_pin = PD5
+dir_pin = PD6
+enable_pin = !PD4
+rotation_distance = 22.6789511
+gear_ratio = 50:17
+microsteps = 32
+full_steps_per_rotation = 200
+nozzle_diameter = 0.400
+filament_diameter = 1.75
+heater_pin = PB15
+sensor_type = NTC 100K MGB18-104F39050L32
+sensor_pin = PC0
+min_temp = 10
+max_temp = 270
+max_power = 1.0
+min_extrude_temp = 170
+control = pid
+pid_kp = 26.213
+pid_ki = 1.304
+pid_kd = 131.721
+
+[tmc2209 extruder]
+uart_pin = PD7
+interpolate = false
+run_current = 0.5
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[heater_bed]
+heater_pin = PB4
+sensor_type = NTC 100K MGB18-104F39050L32
+sensor_pin = PB0
+max_power = 0.6
+min_temp = 0
+max_temp = 120
+control = pid
+pid_kp = 58.437
+pid_ki = 2.347
+pid_kd = 363.769
+
+[probe]
+pin = ^PA3
+x_offset = 0
+y_offset = 25.0
+z_offset = 0
+speed = 10.0
+samples = 3
+samples_result = median
+sample_retract_dist = 3.0
+samples_tolerance = 0.006
+samples_tolerance_retries = 3
+
+[heater_fan hotend_fan]
+pin = PA13
+max_power = 1.0
+heater = extruder
+heater_temp = 50.0
+
+[fan]
+pin = PA14
+kick_start_time = 0.5
+off_below = 0.10
+
+[heater_fan controller_fan]
+pin = PB2
+kick_start_time = 0.5
+heater = heater_bed
+heater_temp = 45.0
+
+[idle_timeout]
+timeout = 1800
+
+[safe_z_home]
+home_xy_position = 350.000 , 234.000
+speed = 100
+z_hop = 10
+
+[quad_gantry_level]
+gantry_corners = 
+	-60,-10
+	410,420
+points = 
+	50,25
+	50,275
+	300,275
+	300,25
+speed = 100
+horizontal_move_z = 10
+retries = 5
+retry_tolerance = 0.0075
+max_adjust = 10
+
+[display]
+lcd_type = uc1701
+cs_pin = PC11
+a0_pin = PD2
+rst_pin = PC10
+encoder_pins = ^PC6,^PC7
+click_pin = ^!PA8
+contrast = 63
+spi_software_mosi_pin = PA7
+spi_software_miso_pin = PA6
+spi_software_sclk_pin = PA5
+
+[neopixel fysetc_mini12864]
+pin = PC12
+chain_count = 3
+initial_red = 0.1
+initial_green = 0.5
+initial_blue = 0.0
+color_order = RGB
+
+[delayed_gcode setdisplayneopixel]
+initial_duration = 1
+gcode = 
+	SET_LED LED=fysetc_mini12864 RED=1 GREEN=1 BLUE=1 INDEX=1 TRANSMIT=0
+	SET_LED LED=fysetc_mini12864 RED=1 GREEN=0 BLUE=0 INDEX=2 TRANSMIT=0
+	SET_LED LED=fysetc_mini12864 RED=1 GREEN=0 BLUE=0 INDEX=3
+
+[gcode_macro PARK]
+gcode = 
+	{% set th = printer.toolhead %}
+	G0 X{th.axis_maximum.x//2} Y{th.axis_maximum.y//2} Z30
+
+[gcode_macro G32]
+gcode = 
+	SAVE_GCODE_STATE NAME=STATE_G32
+	G90
+	G28
+	QUAD_GANTRY_LEVEL
+	G28
+	PARK
+	RESTORE_GCODE_STATE NAME=STATE_G32
+
+[gcode_macro PRINT_START]
+gcode = 
+	G32                            ; home all axes
+	G90                            ; absolute positioning
+	G1 Z20 F3000                   ; move nozzle away from bed
+
+[gcode_macro PRINT_END]
+gcode = 
+	{% set th = printer.toolhead %}
+	{% set x_safe = th.position.x + 20 * (1 if th.axis_maximum.x - th.position.x > 20 else -1) %}
+	{% set y_safe = th.position.y + 20 * (1 if th.axis_maximum.y - th.position.y > 20 else -1) %}
+	{% set z_safe = [th.position.z + 2, th.axis_maximum.z]|min %}
+	SAVE_GCODE_STATE NAME=STATE_PRINT_END
+	M400                           ; wait for buffer to clear
+	G92 E0                         ; zero the extruder
+	G1 E-5.0 F1800                 ; retract filament
+	TURN_OFF_HEATERS
+	G90                                      ; absolute positioning
+	G0 X{x_safe} Y{y_safe} Z{z_safe} F20000  ; move nozzle to remove stringing
+	G0 X{th.axis_maximum.x//2} Y{th.axis_maximum.y - 2} F3600  ; park nozzle at rear
+	M107                                     ; turn off fan
+	BED_MESH_CLEAR
+	RESTORE_GCODE_STATE NAME=STATE_PRINT_END
+=======================
+Extruder max_extrude_ratio=0.266081
+mcu 'mcu': Starting serial connect
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+Got error -1 in read: (11)Resource temporarily unavailable
+webhooks client 547670830048: New connection
+webhooks client 547670830048: Client info {'program': 'Moonraker', 'version': 'v0.8.0-39-g6c7dfe5'}
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+mcu 'mcu': Timeout on connect
+MCU error during connect
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/klippy.py", line 176, in _connect
+    self.send_event("klippy:mcu_identify")
+  File "/home/da_huo_shi_/klipper/klippy/klippy.py", line 263, in send_event
+    return [cb(*params) for cb in self.event_handlers.get(event, [])]
+  File "/home/da_huo_shi_/klipper/klippy/mcu.py", line 803, in _mcu_identify
+    raise error(str(e))
+error: mcu 'mcu': Unable to connect
+Build file /home/da_huo_shi_/klipper/klippy/../.config(3180): Sun May  7 09:30:23 2023
+========= Last MCU build config =========
+CONFIG_LOW_LEVEL_OPTIONS=y
+# CONFIG_MACH_AVR is not set
+# CONFIG_MACH_ATSAM is not set
+# CONFIG_MACH_ATSAMD is not set
+# CONFIG_MACH_LPC176X is not set
+CONFIG_MACH_STM32=y
+# CONFIG_MACH_HC32F460 is not set
+# CONFIG_MACH_RP2040 is not set
+# CONFIG_MACH_PRU is not set
+# CONFIG_MACH_AR100 is not set
+# CONFIG_MACH_LINUX is not set
+# CONFIG_MACH_SIMU is not set
+CONFIG_BOARD_DIRECTORY="stm32"
+CONFIG_MCU="stm32f446xx"
+CONFIG_CLOCK_FREQ=180000000
+CONFIG_USBSERIAL=y
+CONFIG_FLASH_SIZE=0x80000
+CONFIG_FLASH_BOOT_ADDRESS=0x8000000
+CONFIG_RAM_START=0x20000000
+CONFIG_RAM_SIZE=0x20000
+CONFIG_STACK_SIZE=512
+CONFIG_FLASH_APPLICATION_ADDRESS=0x8008000
+CONFIG_STM32_SELECT=y
+# CONFIG_MACH_STM32F103 is not set
+# CONFIG_MACH_STM32F207 is not set
+# CONFIG_MACH_STM32F401 is not set
+# CONFIG_MACH_STM32F405 is not set
+# CONFIG_MACH_STM32F407 is not set
+# CONFIG_MACH_STM32F429 is not set
+CONFIG_MACH_STM32F446=y
+# CONFIG_MACH_STM32F031 is not set
+# CONFIG_MACH_STM32F042 is not set
+# CONFIG_MACH_STM32F070 is not set
+# CONFIG_MACH_STM32F072 is not set
+# CONFIG_MACH_STM32G070 is not set
+# CONFIG_MACH_STM32G071 is not set
+# CONFIG_MACH_STM32G0B0 is not set
+# CONFIG_MACH_STM32G0B1 is not set
+# CONFIG_MACH_STM32G431 is not set
+# CONFIG_MACH_STM32H723 is not set
+# CONFIG_MACH_STM32H743 is not set
+# CONFIG_MACH_STM32H750 is not set
+# CONFIG_MACH_STM32L412 is not set
+# CONFIG_MACH_N32G452 is not set
+# CONFIG_MACH_N32G455 is not set
+CONFIG_MACH_STM32F4=y
+CONFIG_HAVE_STM32_USBOTG=y
+CONFIG_HAVE_STM32_CANBUS=y
+CONFIG_HAVE_STM32_USBCANBUS=y
+CONFIG_STM32_DFU_ROM_ADDRESS=0x1fff0000
+CONFIG_STM32_FLASH_START_8000=y
+# CONFIG_STM32_FLASH_START_10000 is not set
+# CONFIG_STM32_FLASH_START_0000 is not set
+# CONFIG_STM32_CLOCK_REF_8M is not set
+CONFIG_STM32_CLOCK_REF_12M=y
+# CONFIG_STM32_CLOCK_REF_16M is not set
+# CONFIG_STM32_CLOCK_REF_20M is not set
+# CONFIG_STM32_CLOCK_REF_25M is not set
+# CONFIG_STM32_CLOCK_REF_INTERNAL is not set
+CONFIG_CLOCK_REF_FREQ=12000000
+CONFIG_STM32F0_TRIM=16
+CONFIG_STM32_USB_PA11_PA12=y
+# CONFIG_STM32_SERIAL_USART1 is not set
+# CONFIG_STM32_SERIAL_USART1_ALT_PB7_PB6 is not set
+# CONFIG_STM32_SERIAL_USART2 is not set
+# CONFIG_STM32_SERIAL_USART2_ALT_PD6_PD5 is not set
+# CONFIG_STM32_SERIAL_USART3 is not set
+# CONFIG_STM32_SERIAL_USART3_ALT_PD9_PD8 is not set
+# CONFIG_STM32_CANBUS_PA11_PA12 is not set
+# CONFIG_STM32_CANBUS_PA11_PB9 is not set
+# CONFIG_STM32_MMENU_CANBUS_PB8_PB9 is not set
+# CONFIG_STM32_MMENU_CANBUS_PI9_PH13 is not set
+# CONFIG_STM32_MMENU_CANBUS_PB5_PB6 is not set
+# CONFIG_STM32_MMENU_CANBUS_PB12_PB13 is not set
+# CONFIG_STM32_MMENU_CANBUS_PD0_PD1 is not set
+# CONFIG_STM32_USBCANBUS_PA11_PA12 is not set
+CONFIG_USB=y
+CONFIG_USB_VENDOR_ID=0x1d50
+CONFIG_USB_DEVICE_ID=0x614e
+CONFIG_USB_SERIAL_NUMBER_CHIPID=y
+CONFIG_USB_SERIAL_NUMBER="12345"
+
+#
+# USB ids
+#
+# end of USB ids
+
+CONFIG_CANBUS_FREQUENCY=500000
+CONFIG_INITIAL_PINS=""
+CONFIG_HAVE_GPIO=y
+CONFIG_HAVE_GPIO_ADC=y
+CONFIG_HAVE_GPIO_SPI=y
+CONFIG_HAVE_GPIO_SDIO=y
+CONFIG_HAVE_GPIO_I2C=y
+CONFIG_HAVE_GPIO_HARD_PWM=y
+CONFIG_HAVE_GPIO_BITBANGING=y
+CONFIG_HAVE_STRICT_TIMING=y
+CONFIG_HAVE_CHIPID=y
+CONFIG_HAVE_STEPPER_BOTH_EDGE=y
+CONFIG_HAVE_BOOTLOADER_REQUEST=y
+CONFIG_INLINE_STEPPER_HACK=y
+=======================
+Build file /home/da_huo_shi_/klipper/klippy/../out/klipper.dict(8401): Sun May  7 09:30:43 2023
+Last MCU build version: v0.11.0-197-ga3eebab4
+Last MCU build tools: gcc: (15:8-2019-q3-1+b1) 8.3.1 20190703 (release) [gcc-8-branch revision 273027] binutils: (2.35.2-2+14+b2) 2.35.2
+Last MCU build config: BUS_PINS_i2c1=PB6,PB7 BUS_PINS_i2c3=PA8,PC9 BUS_PINS_i2c2=PB10,PB11 BUS_PINS_sdio=PC12,PD2,PC8,PC9,PC10,PC11 PWM_MAX=255 BUS_PINS_spi2a=PC2,PC3,PB10 BUS_PINS_i2c1a=PB8,PB9 RESERVE_PINS_crystal=PH0,PH1 STEPPER_BOTH_EDGE=1 ADC_MAX=4095 BUS_PINS_spi4=PE13,PE14,PE12 BUS_PINS_spi3=PB4,PB5,PB3 BUS_PINS_spi2=PB14,PB15,PB13 BUS_PINS_spi1=PA6,PA7,PA5 RESERVE_PINS_USB=PA11,PA12 BUS_PINS_spi3a=PC11,PC12,PC10 MCU=stm32f446xx STATS_SUMSQ_BASE=256 BUS_PINS_spi1a=PB4,PB5,PB3 CLOCK_FREQ=180000000
+Build file /home/da_huo_shi_/klipper/klippy/../out/klipper.elf(1264260): Sun May  7 09:30:50 2023
+mcu 'mcu': Wait for identify_response
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 68, in _get_identify_data
+    params = self.send_with_response(msg, 'identify_response')
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 261, in send_with_response
+    return src.get_response([cmd], self.default_cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 319, in get_response
+    cmd_queue)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 253, in raw_send_wait_ack
+    self._error("Serial connection closed")
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 61, in _error
+    raise error(self.warn_prefix + (msg % params))
+error: mcu 'mcu': Serial connection closed
+Attempting MCU 'mcu' reset
+webhooks client 547670830048: Disconnected
+Restarting printer
+Start printer at Sun May  7 09:50:38 2023 (1683424238.5 977.4)
+===== Config file =====
+[mcu]
+serial = /dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00
+
+[virtual_sdcard]
+path = /home/da_huo_shi_/printer_data/gcodes
+
+[display_status]
+
+[pause_resume]
+
+[gcode_macro CANCEL_PRINT]
+description = Cancel the actual running print
+rename_existing = CANCEL_PRINT_BASE
+gcode = 
+	TURN_OFF_HEATERS
+	CANCEL_PRINT_BASE
+
+[printer]
+kinematics = corexy
+max_velocity = 300
+max_accel = 3000
+max_z_velocity = 15
+max_z_accel = 350
+square_corner_velocity = 5.0
+
+[stepper_x]
+step_pin = PE11
+dir_pin = !PE10
+enable_pin = !PE9
+rotation_distance = 40
+microsteps = 32
+full_steps_per_rotation = 200
+endstop_pin = ^PB13
+position_min = 0
+position_endstop = 350
+position_max = 350
+homing_speed = 25
+homing_retract_dist = 5
+homing_positive_dir = true
+
+[tmc2209 stepper_x]
+uart_pin = PE7
+interpolate = False
+run_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[stepper_y]
+step_pin = PD8
+dir_pin = PB12
+enable_pin = !PD9
+rotation_distance = 40
+microsteps = 32
+full_steps_per_rotation = 200
+endstop_pin = ^PB14
+position_min = 0
+position_endstop = 350
+position_max = 350
+homing_speed = 25
+homing_retract_dist = 5
+homing_positive_dir = true
+
+[tmc2209 stepper_y]
+uart_pin = PE15
+interpolate = False
+run_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[stepper_z]
+step_pin = PD14
+dir_pin = !PD13
+enable_pin = !PD15
+rotation_distance = 40
+gear_ratio = 80:16
+microsteps = 32
+endstop_pin = ^PA0
+position_endstop = -0.5
+position_max = 310
+position_min = -5
+homing_speed = 8
+second_homing_speed = 3
+homing_retract_dist = 3
+
+[tmc2209 stepper_z]
+uart_pin = PD10
+interpolate = False
+run_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[stepper_z1]
+step_pin = PE6
+dir_pin = PC13
+enable_pin = !PE5
+rotation_distance = 40
+gear_ratio = 80:16
+microsteps = 32
+
+[tmc2209 stepper_z1]
+uart_pin = PC14
+interpolate = False
+run_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[stepper_z2]
+step_pin = PE2
+dir_pin = !PE4
+enable_pin = !PE3
+rotation_distance = 40
+gear_ratio = 80:16
+microsteps = 32
+
+[tmc2209 stepper_z2]
+uart_pin = PC15
+interpolate = False
+run_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[stepper_z3]
+step_pin = PD12
+dir_pin = PC4
+enable_pin = !PE8
+rotation_distance = 40
+gear_ratio = 80:16
+microsteps = 32
+
+[tmc2209 stepper_z3]
+uart_pin = PA15
+interpolate = False
+run_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[extruder]
+step_pin = PD5
+dir_pin = PD6
+enable_pin = !PD4
+rotation_distance = 22.6789511
+gear_ratio = 50:17
+microsteps = 32
+full_steps_per_rotation = 200
+nozzle_diameter = 0.400
+filament_diameter = 1.75
+heater_pin = PB15
+sensor_type = NTC 100K MGB18-104F39050L32
+sensor_pin = PC0
+min_temp = 10
+max_temp = 270
+max_power = 1.0
+min_extrude_temp = 170
+control = pid
+pid_kp = 26.213
+pid_ki = 1.304
+pid_kd = 131.721
+
+[tmc2209 extruder]
+uart_pin = PD7
+interpolate = false
+run_current = 0.5
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[heater_bed]
+heater_pin = PB4
+sensor_type = NTC 100K MGB18-104F39050L32
+sensor_pin = PB0
+max_power = 0.6
+min_temp = 0
+max_temp = 120
+control = pid
+pid_kp = 58.437
+pid_ki = 2.347
+pid_kd = 363.769
+
+[probe]
+pin = ^PA3
+x_offset = 0
+y_offset = 25.0
+z_offset = 0
+speed = 10.0
+samples = 3
+samples_result = median
+sample_retract_dist = 3.0
+samples_tolerance = 0.006
+samples_tolerance_retries = 3
+
+[heater_fan hotend_fan]
+pin = PA13
+max_power = 1.0
+heater = extruder
+heater_temp = 50.0
+
+[fan]
+pin = PA14
+kick_start_time = 0.5
+off_below = 0.10
+
+[heater_fan controller_fan]
+pin = PB2
+kick_start_time = 0.5
+heater = heater_bed
+heater_temp = 45.0
+
+[idle_timeout]
+timeout = 1800
+
+[safe_z_home]
+home_xy_position = 350.000 , 234.000
+speed = 100
+z_hop = 10
+
+[quad_gantry_level]
+gantry_corners = 
+	-60,-10
+	410,420
+points = 
+	50,25
+	50,275
+	300,275
+	300,25
+speed = 100
+horizontal_move_z = 10
+retries = 5
+retry_tolerance = 0.0075
+max_adjust = 10
+
+[display]
+lcd_type = uc1701
+cs_pin = PC11
+a0_pin = PD2
+rst_pin = PC10
+encoder_pins = ^PC6,^PC7
+click_pin = ^!PA8
+contrast = 63
+spi_software_mosi_pin = PA7
+spi_software_miso_pin = PA6
+spi_software_sclk_pin = PA5
+
+[neopixel fysetc_mini12864]
+pin = PC12
+chain_count = 3
+initial_red = 0.1
+initial_green = 0.5
+initial_blue = 0.0
+color_order = RGB
+
+[delayed_gcode setdisplayneopixel]
+initial_duration = 1
+gcode = 
+	SET_LED LED=fysetc_mini12864 RED=1 GREEN=1 BLUE=1 INDEX=1 TRANSMIT=0
+	SET_LED LED=fysetc_mini12864 RED=1 GREEN=0 BLUE=0 INDEX=2 TRANSMIT=0
+	SET_LED LED=fysetc_mini12864 RED=1 GREEN=0 BLUE=0 INDEX=3
+
+[gcode_macro PARK]
+gcode = 
+	{% set th = printer.toolhead %}
+	G0 X{th.axis_maximum.x//2} Y{th.axis_maximum.y//2} Z30
+
+[gcode_macro G32]
+gcode = 
+	SAVE_GCODE_STATE NAME=STATE_G32
+	G90
+	G28
+	QUAD_GANTRY_LEVEL
+	G28
+	PARK
+	RESTORE_GCODE_STATE NAME=STATE_G32
+
+[gcode_macro PRINT_START]
+gcode = 
+	G32                            ; home all axes
+	G90                            ; absolute positioning
+	G1 Z20 F3000                   ; move nozzle away from bed
+
+[gcode_macro PRINT_END]
+gcode = 
+	{% set th = printer.toolhead %}
+	{% set x_safe = th.position.x + 20 * (1 if th.axis_maximum.x - th.position.x > 20 else -1) %}
+	{% set y_safe = th.position.y + 20 * (1 if th.axis_maximum.y - th.position.y > 20 else -1) %}
+	{% set z_safe = [th.position.z + 2, th.axis_maximum.z]|min %}
+	SAVE_GCODE_STATE NAME=STATE_PRINT_END
+	M400                           ; wait for buffer to clear
+	G92 E0                         ; zero the extruder
+	G1 E-5.0 F1800                 ; retract filament
+	TURN_OFF_HEATERS
+	G90                                      ; absolute positioning
+	G0 X{x_safe} Y{y_safe} Z{z_safe} F20000  ; move nozzle to remove stringing
+	G0 X{th.axis_maximum.x//2} Y{th.axis_maximum.y - 2} F3600  ; park nozzle at rear
+	M107                                     ; turn off fan
+	BED_MESH_CLEAR
+	RESTORE_GCODE_STATE NAME=STATE_PRINT_END
+=======================
+Extruder max_extrude_ratio=0.266081
+mcu 'mcu': Starting serial connect
+mcu 'mcu': Unable to open serial port: [Errno 2] could not open port /dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00: [Errno 2] No such file or directory: '/dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00'
+webhooks client 547671138048: New connection
+webhooks client 547671138048: Client info {'program': 'Moonraker', 'version': 'v0.8.0-39-g6c7dfe5'}
+mcu 'mcu': Unable to open serial port: [Errno 2] could not open port /dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00: [Errno 2] No such file or directory: '/dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00'
+mcu 'mcu': Unable to open serial port: [Errno 2] could not open port /dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00: [Errno 2] No such file or directory: '/dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00'
+mcu 'mcu': Unable to open serial port: [Errno 2] could not open port /dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00: [Errno 2] No such file or directory: '/dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00'
+mcu 'mcu': Unable to open serial port: [Errno 2] could not open port /dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00: [Errno 2] No such file or directory: '/dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00'
+mcu 'mcu': Unable to open serial port: [Errno 2] could not open port /dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00: [Errno 2] No such file or directory: '/dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00'
+mcu 'mcu': Unable to open serial port: [Errno 2] could not open port /dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00: [Errno 2] No such file or directory: '/dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00'
+mcu 'mcu': Unable to open serial port: [Errno 2] could not open port /dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00: [Errno 2] No such file or directory: '/dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00'
+mcu 'mcu': Unable to open serial port: [Errno 2] could not open port /dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00: [Errno 2] No such file or directory: '/dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00'
+mcu 'mcu': Unable to open serial port: [Errno 2] could not open port /dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00: [Errno 2] No such file or directory: '/dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00'
+mcu 'mcu': Unable to open serial port: [Errno 2] could not open port /dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00: [Errno 2] No such file or directory: '/dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00'
+mcu 'mcu': Unable to open serial port: [Errno 2] could not open port /dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00: [Errno 2] No such file or directory: '/dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00'
+mcu 'mcu': Unable to open serial port: [Errno 2] could not open port /dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00: [Errno 2] No such file or directory: '/dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00'
+mcu 'mcu': Unable to open serial port: [Errno 2] could not open port /dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00: [Errno 2] No such file or directory: '/dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00'
+mcu 'mcu': Unable to open serial port: [Errno 2] could not open port /dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00: [Errno 2] No such file or directory: '/dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00'
+mcu 'mcu': Unable to open serial port: [Errno 2] could not open port /dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00: [Errno 2] No such file or directory: '/dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00'
+mcu 'mcu': Unable to open serial port: [Errno 2] could not open port /dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00: [Errno 2] No such file or directory: '/dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00'
+mcu 'mcu': Unable to open serial port: [Errno 2] could not open port /dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00: [Errno 2] No such file or directory: '/dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00'
+MCU error during connect
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/klippy.py", line 176, in _connect
+    self.send_event("klippy:mcu_identify")
+  File "/home/da_huo_shi_/klipper/klippy/klippy.py", line 263, in send_event
+    return [cb(*params) for cb in self.event_handlers.get(event, [])]
+  File "/home/da_huo_shi_/klipper/klippy/mcu.py", line 803, in _mcu_identify
+    raise error(str(e))
+error: mcu 'mcu': Unable to connect
+Build file /home/da_huo_shi_/klipper/klippy/../.config(3180): Sun May  7 09:30:23 2023
+========= Last MCU build config =========
+CONFIG_LOW_LEVEL_OPTIONS=y
+# CONFIG_MACH_AVR is not set
+# CONFIG_MACH_ATSAM is not set
+# CONFIG_MACH_ATSAMD is not set
+# CONFIG_MACH_LPC176X is not set
+CONFIG_MACH_STM32=y
+# CONFIG_MACH_HC32F460 is not set
+# CONFIG_MACH_RP2040 is not set
+# CONFIG_MACH_PRU is not set
+# CONFIG_MACH_AR100 is not set
+# CONFIG_MACH_LINUX is not set
+# CONFIG_MACH_SIMU is not set
+CONFIG_BOARD_DIRECTORY="stm32"
+CONFIG_MCU="stm32f446xx"
+CONFIG_CLOCK_FREQ=180000000
+CONFIG_USBSERIAL=y
+CONFIG_FLASH_SIZE=0x80000
+CONFIG_FLASH_BOOT_ADDRESS=0x8000000
+CONFIG_RAM_START=0x20000000
+CONFIG_RAM_SIZE=0x20000
+CONFIG_STACK_SIZE=512
+CONFIG_FLASH_APPLICATION_ADDRESS=0x8008000
+CONFIG_STM32_SELECT=y
+# CONFIG_MACH_STM32F103 is not set
+# CONFIG_MACH_STM32F207 is not set
+# CONFIG_MACH_STM32F401 is not set
+# CONFIG_MACH_STM32F405 is not set
+# CONFIG_MACH_STM32F407 is not set
+# CONFIG_MACH_STM32F429 is not set
+CONFIG_MACH_STM32F446=y
+# CONFIG_MACH_STM32F031 is not set
+# CONFIG_MACH_STM32F042 is not set
+# CONFIG_MACH_STM32F070 is not set
+# CONFIG_MACH_STM32F072 is not set
+# CONFIG_MACH_STM32G070 is not set
+# CONFIG_MACH_STM32G071 is not set
+# CONFIG_MACH_STM32G0B0 is not set
+# CONFIG_MACH_STM32G0B1 is not set
+# CONFIG_MACH_STM32G431 is not set
+# CONFIG_MACH_STM32H723 is not set
+# CONFIG_MACH_STM32H743 is not set
+# CONFIG_MACH_STM32H750 is not set
+# CONFIG_MACH_STM32L412 is not set
+# CONFIG_MACH_N32G452 is not set
+# CONFIG_MACH_N32G455 is not set
+CONFIG_MACH_STM32F4=y
+CONFIG_HAVE_STM32_USBOTG=y
+CONFIG_HAVE_STM32_CANBUS=y
+CONFIG_HAVE_STM32_USBCANBUS=y
+CONFIG_STM32_DFU_ROM_ADDRESS=0x1fff0000
+CONFIG_STM32_FLASH_START_8000=y
+# CONFIG_STM32_FLASH_START_10000 is not set
+# CONFIG_STM32_FLASH_START_0000 is not set
+# CONFIG_STM32_CLOCK_REF_8M is not set
+CONFIG_STM32_CLOCK_REF_12M=y
+# CONFIG_STM32_CLOCK_REF_16M is not set
+# CONFIG_STM32_CLOCK_REF_20M is not set
+# CONFIG_STM32_CLOCK_REF_25M is not set
+# CONFIG_STM32_CLOCK_REF_INTERNAL is not set
+CONFIG_CLOCK_REF_FREQ=12000000
+CONFIG_STM32F0_TRIM=16
+CONFIG_STM32_USB_PA11_PA12=y
+# CONFIG_STM32_SERIAL_USART1 is not set
+# CONFIG_STM32_SERIAL_USART1_ALT_PB7_PB6 is not set
+# CONFIG_STM32_SERIAL_USART2 is not set
+# CONFIG_STM32_SERIAL_USART2_ALT_PD6_PD5 is not set
+# CONFIG_STM32_SERIAL_USART3 is not set
+# CONFIG_STM32_SERIAL_USART3_ALT_PD9_PD8 is not set
+# CONFIG_STM32_CANBUS_PA11_PA12 is not set
+# CONFIG_STM32_CANBUS_PA11_PB9 is not set
+# CONFIG_STM32_MMENU_CANBUS_PB8_PB9 is not set
+# CONFIG_STM32_MMENU_CANBUS_PI9_PH13 is not set
+# CONFIG_STM32_MMENU_CANBUS_PB5_PB6 is not set
+# CONFIG_STM32_MMENU_CANBUS_PB12_PB13 is not set
+# CONFIG_STM32_MMENU_CANBUS_PD0_PD1 is not set
+# CONFIG_STM32_USBCANBUS_PA11_PA12 is not set
+CONFIG_USB=y
+CONFIG_USB_VENDOR_ID=0x1d50
+CONFIG_USB_DEVICE_ID=0x614e
+CONFIG_USB_SERIAL_NUMBER_CHIPID=y
+CONFIG_USB_SERIAL_NUMBER="12345"
+
+#
+# USB ids
+#
+# end of USB ids
+
+CONFIG_CANBUS_FREQUENCY=500000
+CONFIG_INITIAL_PINS=""
+CONFIG_HAVE_GPIO=y
+CONFIG_HAVE_GPIO_ADC=y
+CONFIG_HAVE_GPIO_SPI=y
+CONFIG_HAVE_GPIO_SDIO=y
+CONFIG_HAVE_GPIO_I2C=y
+CONFIG_HAVE_GPIO_HARD_PWM=y
+CONFIG_HAVE_GPIO_BITBANGING=y
+CONFIG_HAVE_STRICT_TIMING=y
+CONFIG_HAVE_CHIPID=y
+CONFIG_HAVE_STEPPER_BOTH_EDGE=y
+CONFIG_HAVE_BOOTLOADER_REQUEST=y
+CONFIG_INLINE_STEPPER_HACK=y
+=======================
+Build file /home/da_huo_shi_/klipper/klippy/../out/klipper.dict(8401): Sun May  7 09:30:43 2023
+Last MCU build version: v0.11.0-197-ga3eebab4
+Last MCU build tools: gcc: (15:8-2019-q3-1+b1) 8.3.1 20190703 (release) [gcc-8-branch revision 273027] binutils: (2.35.2-2+14+b2) 2.35.2
+Last MCU build config: BUS_PINS_i2c1=PB6,PB7 BUS_PINS_i2c3=PA8,PC9 BUS_PINS_i2c2=PB10,PB11 BUS_PINS_sdio=PC12,PD2,PC8,PC9,PC10,PC11 PWM_MAX=255 BUS_PINS_spi2a=PC2,PC3,PB10 BUS_PINS_i2c1a=PB8,PB9 RESERVE_PINS_crystal=PH0,PH1 STEPPER_BOTH_EDGE=1 ADC_MAX=4095 BUS_PINS_spi4=PE13,PE14,PE12 BUS_PINS_spi3=PB4,PB5,PB3 BUS_PINS_spi2=PB14,PB15,PB13 BUS_PINS_spi1=PA6,PA7,PA5 RESERVE_PINS_USB=PA11,PA12 BUS_PINS_spi3a=PC11,PC12,PC10 MCU=stm32f446xx STATS_SUMSQ_BASE=256 BUS_PINS_spi1a=PB4,PB5,PB3 CLOCK_FREQ=180000000
+Build file /home/da_huo_shi_/klipper/klippy/../out/klipper.elf(1264260): Sun May  7 09:30:50 2023
+Attempting MCU 'mcu' reset
+Unhandled exception during post run
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/klippy.py", line 234, in run
+    self.send_event("klippy:firmware_restart")
+  File "/home/da_huo_shi_/klipper/klippy/klippy.py", line 263, in send_event
+    return [cb(*params) for cb in self.event_handlers.get(event, [])]
+  File "/home/da_huo_shi_/klipper/klippy/mcu.py", line 949, in _firmware_restart
+    self._restart_arduino()
+  File "/home/da_huo_shi_/klipper/klippy/mcu.py", line 909, in _restart_arduino
+    serialhdl.arduino_reset(self._serialport, self._reactor)
+  File "/home/da_huo_shi_/klipper/klippy/serialhdl.py", line 379, in arduino_reset
+    ser = serial.Serial(serialport, 2400, timeout=0, exclusive=True)
+  File "/home/da_huo_shi_/klippy-env/lib/python2.7/site-packages/serial/serialutil.py", line 240, in __init__
+    self.open()
+  File "/home/da_huo_shi_/klippy-env/lib/python2.7/site-packages/serial/serialposix.py", line 268, in open
+    raise SerialException(msg.errno, "could not open port {}: {}".format(self._port, msg))
+SerialException: [Errno 2] could not open port /dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00: [Errno 2] No such file or directory: '/dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00'
+Restarting printer
+Start printer at Sun May  7 10:21:53 2023 (1683426113.2 2852.0)
+===== Config file =====
+[mcu]
+serial = /dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00
+
+[virtual_sdcard]
+path = /home/da_huo_shi_/printer_data/gcodes
+
+[display_status]
+
+[pause_resume]
+
+[gcode_macro CANCEL_PRINT]
+description = Cancel the actual running print
+rename_existing = CANCEL_PRINT_BASE
+gcode = 
+	TURN_OFF_HEATERS
+	CANCEL_PRINT_BASE
+
+[printer]
+kinematics = corexy
+max_velocity = 300
+max_accel = 3000
+max_z_velocity = 15
+max_z_accel = 350
+square_corner_velocity = 5.0
+
+[stepper_x]
+step_pin = PE11
+dir_pin = !PE10
+enable_pin = !PE9
+rotation_distance = 40
+microsteps = 32
+full_steps_per_rotation = 200
+endstop_pin = ^PB13
+position_min = 0
+position_endstop = 350
+position_max = 350
+homing_speed = 25
+homing_retract_dist = 5
+homing_positive_dir = true
+
+[tmc2209 stepper_x]
+uart_pin = PE7
+interpolate = False
+run_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[stepper_y]
+step_pin = PD8
+dir_pin = PB12
+enable_pin = !PD9
+rotation_distance = 40
+microsteps = 32
+full_steps_per_rotation = 200
+endstop_pin = ^PB14
+position_min = 0
+position_endstop = 350
+position_max = 350
+homing_speed = 25
+homing_retract_dist = 5
+homing_positive_dir = true
+
+[tmc2209 stepper_y]
+uart_pin = PE15
+interpolate = False
+run_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[stepper_z]
+step_pin = PD14
+dir_pin = !PD13
+enable_pin = !PD15
+rotation_distance = 40
+gear_ratio = 80:16
+microsteps = 32
+endstop_pin = ^PA0
+position_endstop = -0.5
+position_max = 310
+position_min = -5
+homing_speed = 8
+second_homing_speed = 3
+homing_retract_dist = 3
+
+[tmc2209 stepper_z]
+uart_pin = PD10
+interpolate = False
+run_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[stepper_z1]
+step_pin = PE6
+dir_pin = PC13
+enable_pin = !PE5
+rotation_distance = 40
+gear_ratio = 80:16
+microsteps = 32
+
+[tmc2209 stepper_z1]
+uart_pin = PC14
+interpolate = False
+run_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[stepper_z2]
+step_pin = PE2
+dir_pin = !PE4
+enable_pin = !PE3
+rotation_distance = 40
+gear_ratio = 80:16
+microsteps = 32
+
+[tmc2209 stepper_z2]
+uart_pin = PC15
+interpolate = False
+run_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[stepper_z3]
+step_pin = PD12
+dir_pin = PC4
+enable_pin = !PE8
+rotation_distance = 40
+gear_ratio = 80:16
+microsteps = 32
+
+[tmc2209 stepper_z3]
+uart_pin = PA15
+interpolate = False
+run_current = 0.8
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[extruder]
+step_pin = PD5
+dir_pin = PD6
+enable_pin = !PD4
+rotation_distance = 22.6789511
+gear_ratio = 50:17
+microsteps = 32
+full_steps_per_rotation = 200
+nozzle_diameter = 0.400
+filament_diameter = 1.75
+heater_pin = PB15
+sensor_type = NTC 100K MGB18-104F39050L32
+sensor_pin = PC0
+min_temp = 10
+max_temp = 270
+max_power = 1.0
+min_extrude_temp = 170
+control = pid
+pid_kp = 26.213
+pid_ki = 1.304
+pid_kd = 131.721
+
+[tmc2209 extruder]
+uart_pin = PD7
+interpolate = false
+run_current = 0.5
+sense_resistor = 0.110
+stealthchop_threshold = 0
+
+[heater_bed]
+heater_pin = PB4
+sensor_type = NTC 100K MGB18-104F39050L32
+sensor_pin = PB0
+max_power = 0.6
+min_temp = 0
+max_temp = 120
+control = pid
+pid_kp = 58.437
+pid_ki = 2.347
+pid_kd = 363.769
+
+[probe]
+pin = ^PA3
+x_offset = 0
+y_offset = 25.0
+z_offset = 0
+speed = 10.0
+samples = 3
+samples_result = median
+sample_retract_dist = 3.0
+samples_tolerance = 0.006
+samples_tolerance_retries = 3
+
+[heater_fan hotend_fan]
+pin = PA13
+max_power = 1.0
+heater = extruder
+heater_temp = 50.0
+
+[fan]
+pin = PA14
+kick_start_time = 0.5
+off_below = 0.10
+
+[heater_fan controller_fan]
+pin = PB2
+kick_start_time = 0.5
+heater = heater_bed
+heater_temp = 45.0
+
+[idle_timeout]
+timeout = 1800
+
+[safe_z_home]
+home_xy_position = 350.000 , 234.000
+speed = 100
+z_hop = 10
+
+[quad_gantry_level]
+gantry_corners = 
+	-60,-10
+	410,420
+points = 
+	50,25
+	50,275
+	300,275
+	300,25
+speed = 100
+horizontal_move_z = 10
+retries = 5
+retry_tolerance = 0.0075
+max_adjust = 10
+
+[display]
+lcd_type = uc1701
+cs_pin = PC11
+a0_pin = PD2
+rst_pin = PC10
+encoder_pins = ^PC6,^PC7
+click_pin = ^!PA8
+contrast = 63
+spi_software_mosi_pin = PA7
+spi_software_miso_pin = PA6
+spi_software_sclk_pin = PA5
+
+[neopixel fysetc_mini12864]
+pin = PC12
+chain_count = 3
+initial_red = 0.1
+initial_green = 0.5
+initial_blue = 0.0
+color_order = RGB
+
+[delayed_gcode setdisplayneopixel]
+initial_duration = 1
+gcode = 
+	SET_LED LED=fysetc_mini12864 RED=1 GREEN=1 BLUE=1 INDEX=1 TRANSMIT=0
+	SET_LED LED=fysetc_mini12864 RED=1 GREEN=0 BLUE=0 INDEX=2 TRANSMIT=0
+	SET_LED LED=fysetc_mini12864 RED=1 GREEN=0 BLUE=0 INDEX=3
+
+[gcode_macro PARK]
+gcode = 
+	{% set th = printer.toolhead %}
+	G0 X{th.axis_maximum.x//2} Y{th.axis_maximum.y//2} Z30
+
+[gcode_macro G32]
+gcode = 
+	SAVE_GCODE_STATE NAME=STATE_G32
+	G90
+	G28
+	QUAD_GANTRY_LEVEL
+	G28
+	PARK
+	RESTORE_GCODE_STATE NAME=STATE_G32
+
+[gcode_macro PRINT_START]
+gcode = 
+	G32                            ; home all axes
+	G90                            ; absolute positioning
+	G1 Z20 F3000                   ; move nozzle away from bed
+
+[gcode_macro PRINT_END]
+gcode = 
+	{% set th = printer.toolhead %}
+	{% set x_safe = th.position.x + 20 * (1 if th.axis_maximum.x - th.position.x > 20 else -1) %}
+	{% set y_safe = th.position.y + 20 * (1 if th.axis_maximum.y - th.position.y > 20 else -1) %}
+	{% set z_safe = [th.position.z + 2, th.axis_maximum.z]|min %}
+	SAVE_GCODE_STATE NAME=STATE_PRINT_END
+	M400                           ; wait for buffer to clear
+	G92 E0                         ; zero the extruder
+	G1 E-5.0 F1800                 ; retract filament
+	TURN_OFF_HEATERS
+	G90                                      ; absolute positioning
+	G0 X{x_safe} Y{y_safe} Z{z_safe} F20000  ; move nozzle to remove stringing
+	G0 X{th.axis_maximum.x//2} Y{th.axis_maximum.y - 2} F3600  ; park nozzle at rear
+	M107                                     ; turn off fan
+	BED_MESH_CLEAR
+	RESTORE_GCODE_STATE NAME=STATE_PRINT_END
+=======================
+Extruder max_extrude_ratio=0.266081
+mcu 'mcu': Starting serial connect
+mcu 'mcu': Unable to open serial port: [Errno 2] could not open port /dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00: [Errno 2] No such file or directory: '/dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00'
+webhooks client 547652983616: New connection
+webhooks client 547652983616: Client info {'program': 'Moonraker', 'version': 'v0.8.0-39-g6c7dfe5'}
+mcu 'mcu': Unable to open serial port: [Errno 2] could not open port /dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00: [Errno 2] No such file or directory: '/dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00'
+mcu 'mcu': Unable to open serial port: [Errno 2] could not open port /dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00: [Errno 2] No such file or directory: '/dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00'
+mcu 'mcu': Unable to open serial port: [Errno 2] could not open port /dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00: [Errno 2] No such file or directory: '/dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00'
+mcu 'mcu': Unable to open serial port: [Errno 2] could not open port /dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00: [Errno 2] No such file or directory: '/dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00'
+mcu 'mcu': Unable to open serial port: [Errno 2] could not open port /dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00: [Errno 2] No such file or directory: '/dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00'
+mcu 'mcu': Unable to open serial port: [Errno 2] could not open port /dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00: [Errno 2] No such file or directory: '/dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00'
+mcu 'mcu': Unable to open serial port: [Errno 2] could not open port /dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00: [Errno 2] No such file or directory: '/dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00'
+mcu 'mcu': Unable to open serial port: [Errno 2] could not open port /dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00: [Errno 2] No such file or directory: '/dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00'
+mcu 'mcu': Unable to open serial port: [Errno 2] could not open port /dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00: [Errno 2] No such file or directory: '/dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00'
+mcu 'mcu': Unable to open serial port: [Errno 2] could not open port /dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00: [Errno 2] No such file or directory: '/dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00'
+mcu 'mcu': Unable to open serial port: [Errno 2] could not open port /dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00: [Errno 2] No such file or directory: '/dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00'
+mcu 'mcu': Unable to open serial port: [Errno 2] could not open port /dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00: [Errno 2] No such file or directory: '/dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00'
+mcu 'mcu': Unable to open serial port: [Errno 2] could not open port /dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00: [Errno 2] No such file or directory: '/dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00'
+mcu 'mcu': Unable to open serial port: [Errno 2] could not open port /dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00: [Errno 2] No such file or directory: '/dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00'
+mcu 'mcu': Unable to open serial port: [Errno 2] could not open port /dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00: [Errno 2] No such file or directory: '/dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00'
+mcu 'mcu': Unable to open serial port: [Errno 2] could not open port /dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00: [Errno 2] No such file or directory: '/dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00'
+mcu 'mcu': Unable to open serial port: [Errno 2] could not open port /dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00: [Errno 2] No such file or directory: '/dev/serial/by-id/usb-Klipper_stm32f446xx_190040001951303439363932-if00'
+MCU error during connect
+Traceback (most recent call last):
+  File "/home/da_huo_shi_/klipper/klippy/klippy.py", line 176, in _connect
+    self.send_event("klippy:mcu_identify")
+  File "/home/da_huo_shi_/klipper/klippy/klippy.py", line 263, in send_event
+    return [cb(*params) for cb in self.event_handlers.get(event, [])]
+  File "/home/da_huo_shi_/klipper/klippy/mcu.py", line 803, in _mcu_identify
+    raise error(str(e))
+error: mcu 'mcu': Unable to connect
+Build file /home/da_huo_shi_/klipper/klippy/../.config(3180): Sun May  7 09:30:23 2023
+========= Last MCU build config =========
+CONFIG_LOW_LEVEL_OPTIONS=y
+# CONFIG_MACH_AVR is not set
+# CONFIG_MACH_ATSAM is not set
+# CONFIG_MACH_ATSAMD is not set
+# CONFIG_MACH_LPC176X is not set
+CONFIG_MACH_STM32=y
+# CONFIG_MACH_HC32F460 is not set
+# CONFIG_MACH_RP2040 is not set
+# CONFIG_MACH_PRU is not set
+# CONFIG_MACH_AR100 is not set
+# CONFIG_MACH_LINUX is not set
+# CONFIG_MACH_SIMU is not set
+CONFIG_BOARD_DIRECTORY="stm32"
+CONFIG_MCU="stm32f446xx"
+CONFIG_CLOCK_FREQ=180000000
+CONFIG_USBSERIAL=y
+CONFIG_FLASH_SIZE=0x80000
+CONFIG_FLASH_BOOT_ADDRESS=0x8000000
+CONFIG_RAM_START=0x20000000
+CONFIG_RAM_SIZE=0x20000
+CONFIG_STACK_SIZE=512
+CONFIG_FLASH_APPLICATION_ADDRESS=0x8008000
+CONFIG_STM32_SELECT=y
+# CONFIG_MACH_STM32F103 is not set
+# CONFIG_MACH_STM32F207 is not set
+# CONFIG_MACH_STM32F401 is not set
+# CONFIG_MACH_STM32F405 is not set
+# CONFIG_MACH_STM32F407 is not set
+# CONFIG_MACH_STM32F429 is not set
+CONFIG_MACH_STM32F446=y
+# CONFIG_MACH_STM32F031 is not set
+# CONFIG_MACH_STM32F042 is not set
+# CONFIG_MACH_STM32F070 is not set
+# CONFIG_MACH_STM32F072 is not set
+# CONFIG_MACH_STM32G070 is not set
+# CONFIG_MACH_STM32G071 is not set
+# CONFIG_MACH_STM32G0B0 is not set
+# CONFIG_MACH_STM32G0B1 is not set
+# CONFIG_MACH_STM32G431 is not set
+# CONFIG_MACH_STM32H723 is not set
+# CONFIG_MACH_STM32H743 is not set
+# CONFIG_MACH_STM32H750 is not set
+# CONFIG_MACH_STM32L412 is not set
+# CONFIG_MACH_N32G452 is not set
+# CONFIG_MACH_N32G455 is not set
+CONFIG_MACH_STM32F4=y
+CONFIG_HAVE_STM32_USBOTG=y
+CONFIG_HAVE_STM32_CANBUS=y
+CONFIG_HAVE_STM32_USBCANBUS=y
+CONFIG_STM32_DFU_ROM_ADDRESS=0x1fff0000
+CONFIG_STM32_FLASH_START_8000=y
+# CONFIG_STM32_FLASH_START_10000 is not set
+# CONFIG_STM32_FLASH_START_0000 is not set
+# CONFIG_STM32_CLOCK_REF_8M is not set
+CONFIG_STM32_CLOCK_REF_12M=y
+# CONFIG_STM32_CLOCK_REF_16M is not set
+# CONFIG_STM32_CLOCK_REF_20M is not set
+# CONFIG_STM32_CLOCK_REF_25M is not set
+# CONFIG_STM32_CLOCK_REF_INTERNAL is not set
+CONFIG_CLOCK_REF_FREQ=12000000
+CONFIG_STM32F0_TRIM=16
+CONFIG_STM32_USB_PA11_PA12=y
+# CONFIG_STM32_SERIAL_USART1 is not set
+# CONFIG_STM32_SERIAL_USART1_ALT_PB7_PB6 is not set
+# CONFIG_STM32_SERIAL_USART2 is not set
+# CONFIG_STM32_SERIAL_USART2_ALT_PD6_PD5 is not set
+# CONFIG_STM32_SERIAL_USART3 is not set
+# CONFIG_STM32_SERIAL_USART3_ALT_PD9_PD8 is not set
+# CONFIG_STM32_CANBUS_PA11_PA12 is not set
+# CONFIG_STM32_CANBUS_PA11_PB9 is not set
+# CONFIG_STM32_MMENU_CANBUS_PB8_PB9 is not set
+# CONFIG_STM32_MMENU_CANBUS_PI9_PH13 is not set
+# CONFIG_STM32_MMENU_CANBUS_PB5_PB6 is not set
+# CONFIG_STM32_MMENU_CANBUS_PB12_PB13 is not set
+# CONFIG_STM32_MMENU_CANBUS_PD0_PD1 is not set
+# CONFIG_STM32_USBCANBUS_PA11_PA12 is not set
+CONFIG_USB=y
+CONFIG_USB_VENDOR_ID=0x1d50
+CONFIG_USB_DEVICE_ID=0x614e
+CONFIG_USB_SERIAL_NUMBER_CHIPID=y
+CONFIG_USB_SERIAL_NUMBER="12345"
+
+#
+# USB ids
+#
+# end of USB ids
+
+CONFIG_CANBUS_FREQUENCY=500000
+CONFIG_INITIAL_PINS=""
+CONFIG_HAVE_GPIO=y
+CONFIG_HAVE_GPIO_ADC=y
+CONFIG_HAVE_GPIO_SPI=y
+CONFIG_HAVE_GPIO_SDIO=y
+CONFIG_HAVE_GPIO_I2C=y
+CONFIG_HAVE_GPIO_HARD_PWM=y
+CONFIG_HAVE_GPIO_BITBANGING=y
+CONFIG_HAVE_STRICT_TIMING=y
+CONFIG_HAVE_CHIPID=y
+CONFIG_HAVE_STEPPER_BOTH_EDGE=y
+CONFIG_HAVE_BOOTLOADER_REQUEST=y
+CONFIG_INLINE_STEPPER_HACK=y
+=======================
+Build file /home/da_huo_shi_/klipper/klippy/../out/klipper.dict(8401): Sun May  7 09:30:43 2023
+Last MCU build version: v0.11.0-197-ga3eebab4
+Last MCU build tools: gcc: (15:8-2019-q3-1+b1) 8.3.1 20190703 (release) [gcc-8-branch revision 273027] binutils: (2.35.2-2+14+b2) 2.35.2
+Last MCU build config: BUS_PINS_i2c1=PB6,PB7 BUS_PINS_i2c3=PA8,PC9 BUS_PINS_i2c2=PB10,PB11 BUS_PINS_sdio=PC12,PD2,PC8,PC9,PC10,PC11 PWM_MAX=255 BUS_PINS_spi2a=PC2,PC3,PB10 BUS_PINS_i2c1a=PB8,PB9 RESERVE_PINS_crystal=PH0,PH1 STEPPER_BOTH_EDGE=1 ADC_MAX=4095 BUS_PINS_spi4=PE13,PE14,PE12 BUS_PINS_spi3=PB4,PB5,PB3 BUS_PINS_spi2=PB14,PB15,PB13 BUS_PINS_spi1=PA6,PA7,PA5 RESERVE_PINS_USB=PA11,PA12 BUS_PINS_spi3a=PC11,PC12,PC10 MCU=stm32f446xx STATS_SUMSQ_BASE=256 BUS_PINS_spi1a=PB4,PB5,PB3 CLOCK_FREQ=180000000
+Build file /home/da_huo_shi_/klipper/klippy/../out/klipper.elf(1264260): Sun May  7 09:30:50 2023
